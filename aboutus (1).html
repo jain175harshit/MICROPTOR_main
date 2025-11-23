@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #ef4444;
+        --secondary-color: #111827;
+      }
+      .red-glow {
+        box-shadow: 0 0 15px 5px rgba(239, 68, 68, 0.4);
+      }
+    </style>
+</head>
+<body class="bg-[var(--secondary-color)] text-gray-300" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-gray-800">
+  <div class="flex items-center gap-3 text-white">
+    <a href="index.html" class="flex items-center gap-3">
+      <svg class="h-8 w-8 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.23L19.5 9.5V14.5L12 19.77L4.5 14.5V9.5L12 4.23ZM11 10V14H13V10H11ZM11 15V17H13V15H11Z"></path></svg>
+      <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+    </a>
+  </div>
+  <div class="flex items-center gap-4">
+    <nav class="hidden md:flex items-center gap-8">
+      <div class="relative">
+        <button data-products-btn class="flex items-center gap-2 text-gray-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded">
+          <span>Products</span>
+          <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div data-products-menu class="hidden absolute right-0 mt-2 w-44 bg-gray-800 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5">
+          <a href="pdp1.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">Hawkeye</a>
+          <a href="pdp2.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">SkyDrop</a>
+            <a href="pdp3.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">HeatViper</a>
+        </div>
+      </div>
+      <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="index.html">Home</a>
+      <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="careers.html">Careers</a>
+      <a class="text-white text-sm font-bold border-b-2 border-[var(--primary-color)] pb-1" href="aboutus.html">About</a>
+      <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="contactus.html">Contact</a>
+    </nav>
+    <button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 z-30">
+    <nav class="p-4 space-y-2">
+      <div>
+        <button id="mobileProductsBtn" class="w-full flex items-center justify-between px-2 py-2 text-gray-200">Products
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div id="mobileProductsMenu" class="hidden pl-4 mt-1">
+          <a href="pdp1.html" class="block px-2 py-2 text-gray-200">Hawkeye</a>
+          <a href="pdp2.html" class="block px-2 py-2 text-gray-200">SkyDrop</a>
+            <a href="pdp3.html" class="block px-2 py-2 text-gray-200">HeatViper</a>
+        </div>
+      </div>
+      <a class="block px-2 py-2 text-gray-200" href="index.html">Home</a>
+      <a class="block px-2 py-2 text-gray-200" href="careers.html">Careers</a>
+      <a class="block px-2 py-2 text-gray-200" href="aboutus.html">About</a>
+      <a class="block px-2 py-2 text-gray-200" href="contactus.html">Contact</a>
+    </nav>
+  </div>
+</header>
+<main class="flex-1 px-10 md:px-20 lg:px-40 py-16">
+<div class="layout-content-container flex flex-col max-w-4xl mx-auto">
+<h1 class="text-white text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-8 text-center">
+              Pioneering the Future of Defense Technology
+            </h1>
+<p class="text-gray-400 text-lg leading-relaxed mb-12 text-center">
+              MICROPTOR is a leading defense technology company specializing in the development and deployment of advanced drone systems. Our mission is to provide cutting-edge
+              solutions that enhance security and operational effectiveness for our clients.
+            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="border-l-4 border-[var(--primary-color)] pl-6">
+<h2 class="text-white text-2xl font-bold mb-3">Our Mission</h2>
+<p class="text-gray-400">
+                  To provide cutting-edge solutions that enhance security and operational effectiveness for our clients. With a focus on innovation and reliability, we are committed to delivering products that meet the highest standards of performance and safety.
+                </p>
+</div>
+<div class="border-l-4 border-[var(--primary-color)] pl-6">
+<h2 class="text-white text-2xl font-bold mb-3">Our Vision</h2>
+<p class="text-gray-400">
+                  To be the foremost provider of drone technology in the defense sector, recognized for our commitment to excellence, innovation, and unwavering dedication to our clients' success. We envision a future where our solutions play a critical role in safeguarding national security and protecting lives.
+                </p>
+</div>
+</div>
+<div class="mt-16">
+<h2 class="text-white text-3xl font-bold text-center mb-10">Our Core Values</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-center">
+<div class="flex flex-col items-center">
+<div class="bg-gray-800 rounded-full p-4 mb-3 border border-gray-700">
+<span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">verified_user</span>
+</div>
+<h3 class="text-white font-semibold mb-1">Integrity</h3>
+</div>
+<div class="flex flex-col items-center">
+<div class="bg-gray-800 rounded-full p-4 mb-3 border border-gray-700">
+<span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">auto_awesome</span>
+</div>
+<h3 class="text-white font-semibold mb-1">Innovation</h3>
+</div>
+<div class="flex flex-col items-center">
+<div class="bg-gray-800 rounded-full p-4 mb-3 border border-gray-700">
+<span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">military_tech</span>
+</div>
+<h3 class="text-white font-semibold mb-1">Reliability</h3>
+</div>
+<div class="flex flex-col items-center">
+<div class="bg-gray-800 rounded-full p-4 mb-3 border border-gray-700">
+<span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">security</span>
+</div>
+<h3 class="text-white font-semibold mb-1">Security</h3>
+</div>
+<div class="flex flex-col items-center">
+<div class="bg-gray-800 rounded-full p-4 mb-3 border border-gray-700">
+<span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">groups</span>
+</div>
+<h3 class="text-white font-semibold mb-1">Collaboration</h3>
+</div>
+</div>
+</div>
+<div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="text-white text-3xl font-bold mb-4">Our History</h2>
+<p class="text-gray-400 leading-relaxed">
+                  Founded in 2024, MICROPTOR has grown from a small startup to a recognized leader in the defense technology industry. Our journey has been marked by a relentless
+                  pursuit of innovation and a commitment to meeting the evolving needs of our clients. We have a proven track record of developing and deploying successful drone
+                  solutions for a wide range of applications, earning the trust of our clients and partners.
+                </p>
+</div>
+<div class="relative h-64 rounded-lg overflow-hidden">
+<img alt="Circuit board" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaZyFhlSB8mIh4kuJp3Rc1173iE5ehIC39g9qtsIUmZTuhAkS4pFLtFoQ592V9YiXJXOUB0EXquF7Cjc9D1Ij6gfwSl7SKS64QBx0bSxUFcQR4Hg2WoQI6EWJdwPk1wvEOE2jxj3yWLNsAmyfi3oHDdQAtQlTjyyvaOYDlKgsqVEGK8mwCMbMAOpdZA4hEz1Z9rIRrLsg7WJOr3z-tZPbcsMx1UBnGO49WPZaATNdoB5AudSRaDn4P2MguY8-yoVIlucxq8GX-ay2M"/>
+<div class="absolute inset-0 bg-black/50"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[var(--secondary-color)] to-transparent"></div>
+</div>
+</div>
+<div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="relative h-64 rounded-lg overflow-hidden md:order-2">
+<img alt="Team collaborating" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcZoPxQuQDjGFAELWJ2u-BsokdC1lvu56At4nKCeqYjdFdGfZk3iYuXIy_S4oY-7sNKSkuEqCgAPaqWl3GuV1eBM9iQ-iTsyvI91RPejmimrMcl71UZwYi3H9YiXJDMTuLZOA95PsZ9fg_6rZ_eWoKnfLMKNEczPQrQE5Cu0nAjLEdS5vDTX6fpVbNb8pbcGEW4KucFjz8E4Wh2moUG8E4lGjhhQ1CVGoIhD11Le99zv4eiUbCQGofTOdDkXjiJibvhe_oc_gV6DaP"/>
+<div class="absolute inset-0 bg-black/50"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[var(--secondary-color)] to-transparent"></div>
+</div>
+<div class="md:order-1">
+<h2 class="text-white text-3xl font-bold mb-4">Our Team</h2>
+<p class="text-gray-400 leading-relaxed">
+                  Our team comprises experienced engineers, designers, and strategists with a shared passion for innovation and excellence. We bring diverse perspectives and expertise
+                  to every project, ensuring that our solutions are both technically advanced and practically effective. Our collaborative approach and commitment to continuous
+                  learning enable us to stay at the forefront of the industry.
+                </p>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-gray-900 border-t border-gray-800">
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col items-center space-y-6">
+<div class="flex items-center gap-3 text-white">
+<svg class="h-7 w-7 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.23L19.5 9.5V14.5L12 19.77L4.5 14.5V9.5L12 4.23ZM11 10V14H13V10H11ZM11 15V17H13V15H11Z"></path>
+</svg>
+<h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+<a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Privacy Policy</a>
+<a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Terms of Service</a>
+<a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Contact Us</a>
+</div>
+<p class="text-gray-500 text-sm">© 2023 MICROPTOR. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</div>
+
+<script src="assets/header.js"></script>
+
+</body></html>

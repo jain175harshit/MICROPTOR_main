@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <title>MICROPTOR - Apply Now</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    class="bg-[#000000] text-white"
+    style='font-family: "Public Sans", "Noto Sans", sans-serif;'
+  >
+    <div
+      class="relative flex size-full min-h-screen flex-col dark group/design-root overflow-x-hidden"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <!-- HEADER -->
+        <header
+          class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-neutral-800 px-10 py-4"
+        >
+          <div class="flex items-center gap-3 text-white">
+            <a href="index.html" class="flex items-center gap-3">
+              <svg
+                class="h-8 w-8 text-red-600"
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_6_535)">
+                  <path
+                    clip-rule="evenodd"
+                    d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_535">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+              <h2 class="text-white text-lg font-bold tracking-wider">
+                MICROPTOR
+              </h2>
+            </a>
+          </div>
+
+          <div class="flex flex-1 justify-end gap-8">
+            <nav class="flex items-center gap-8">
+              <div class="relative">
+                <button
+                  data-products-btn
+                  aria-expanded="false"
+                  class="flex items-center gap-2 text-neutral-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded"
+                >
+                  <span>Products</span>
+                  <svg
+                    class="h-4 w-4 text-neutral-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </button>
+                <div
+                  data-products-menu
+                  class="hidden absolute right-0 mt-2 w-44 bg-neutral-900 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5"
+                >
+                  <a
+                    href="pdp1.html"
+                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
+                    >Hawkeye</a
+                  >
+                  <a
+                    href="pdp2.html"
+                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
+                    >SkyDrop</a
+                  >
+                </div>
+              </div>
+
+              <a
+                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
+                href="index.html"
+                >Home</a
+              >
+              <a
+                class="text-white text-sm font-bold border-b-2 border-red-600 pb-1"
+                href="careers.html"
+                >Careers</a
+              >
+              <a
+                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
+                href="aboutus.html"
+                >About</a
+              >
+              <a
+                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
+                href="contactus.html"
+                >Contact</a
+              >
+            </nav>
+          </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="flex-1 px-4 py-12 md:px-6 lg:px-8">
+          <div class="container mx-auto max-w-4xl">
+            <div class="flex flex-col gap-6">
+              <div class="space-y-3">
+                <h1 class="text-4xl font-bold tracking-tight text-white">
+                  Apply for Position
+                </h1>
+                <p class="text-neutral-400 text-lg">
+                  Join our team and help build the future of aerial defense technology.
+                </p>
+              </div>
+
+              <!-- JOB APPLICATION FORM -->
+              <form
+                id="application-form"
+                method="POST"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSfl-yPD7dk1PoEbdZgGaktmjxdq-rCr5wNIo9qpK-dsdwYT-g/formResponse"
+                class="space-y-6"
+              >
+                <!-- Hidden submit field -->
+                <input type="hidden" name="submit" value="Submit" />
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <!-- Name -->
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium text-neutral-300"
+                      for="name"
+                      >Full Name <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      required
+                      id="name"
+                      name="entry.689553058"
+                      class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                      placeholder="John Doe"
+                    />
+                  </div>
+
+                  <!-- Email -->
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium text-neutral-300"
+                      for="email"
+                      >Email Address <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      required
+                      id="email"
+                      name="entry.1662442470"
+                      type="email"
+                      class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                      placeholder="john.doe@example.com"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <!-- Phone -->
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium text-neutral-300"
+                      for="phone"
+                      >Phone Number <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      required
+                      id="phone"
+                      name="entry.1845139704"
+                      type="tel"
+                      class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                      placeholder="+91 9876543210"
+                    />
+                  </div>
+
+                  <!-- Position -->
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium text-neutral-300"
+                      for="position"
+                      >Position Applying For <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      required
+                      id="position"
+                      name="entry.2091667"
+                      class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                      placeholder="e.g., Embedded Engineer"
+                    />
+                  </div>
+                </div>
+
+                <!-- Resume/LinkedIn -->
+                <div class="space-y-2">
+                  <label
+                    class="text-sm font-medium text-neutral-300"
+                    for="resume"
+                    >Resume/LinkedIn/Portfolio URL <span class="text-red-500">*</span></label
+                  >
+                  <input
+                    required
+                    id="resume"
+                    name="entry.157937799"
+                    type="text"
+                    class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                    placeholder="https://linkedin.com/in/yourname or Google Drive link"
+                  />
+                  <p class="text-neutral-500 text-xs">
+                    Provide a link to your resume (Google Drive, Dropbox) or LinkedIn profile
+                  </p>
+                </div>
+
+                <!-- Cover Letter / Why you want to join -->
+                <div class="space-y-2">
+                  <label
+                    class="text-sm font-medium text-neutral-300"
+                    for="message"
+                    >Why do you want to join us? <span class="text-red-500">*</span></label
+                  >
+                  <textarea
+                    required
+                    id="message"
+                    name="entry.598374086"
+                    class="form-textarea flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 min-h-36 resize-y"
+                    placeholder="Tell us about your experience, skills, and why you're interested in this position..."
+                  ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-md h-12 px-6 bg-red-600 hover:bg-red-700 text-white text-base font-bold tracking-wide transition-colors"
+                  type="submit"
+                >
+                  <span class="truncate">Submit Application</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Page-specific JS -->
+    <script src="assets/apply.js"></script>
+
+    <!-- Header behavior JS -->
+    <script src="assets/header.js"></script>
+
+    <!-- Fallback header behavior if header.js is empty / missing -->
+    <script>
+      (function () {
+        function qs(sel) {
+          return document.querySelector(sel);
+        }
+
+        // Desktop product menu
+        const prodBtn = qs("[data-products-btn]");
+        const prodMenu = qs("[data-products-menu]");
+        if (prodBtn && prodMenu) {
+          prodBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            prodMenu.classList.toggle("hidden");
+          });
+          document.addEventListener("click", () => {
+            if (!prodMenu.classList.contains("hidden")) {
+              prodMenu.classList.add("hidden");
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

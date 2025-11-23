@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Public+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>HeatViper — MICROPTOR</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+:root{--primary-color: #ef4444;--secondary-color: #0b0b0b;}
+</style>
+</head>
+<body class="bg-[var(--secondary-color)] text-gray-300" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-gray-800">
+<div class="flex items-center gap-3 text-white">
+<a href="index.html" class="flex items-center gap-3">
+<svg class="h-8 w-8 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.23L19.5 9.5V14.5L12 19.77L4.5 14.5V9.5L12 4.23ZM11 10V14H13V10H11ZM11 15V17H13V15H11Z"></path></svg>
+<h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+</a>
+</div>
+<div class="flex items-center gap-4">
+<nav class="hidden md:flex items-center gap-8">
+<div class="relative">
+<button data-products-btn class="flex items-center gap-2 text-white text-sm font-bold border-b-2 border-[var(--primary-color)] pb-1 transition-colors px-2 py-1 rounded">
+<span>Products</span>
+<svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</button>
+<div data-products-menu class="hidden absolute right-0 mt-2 w-44 bg-gray-800 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5">
+<a href="pdp1.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">Hawkeye</a>
+<a href="pdp2.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">SkyDrop</a>
+<a href="pdp3.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">HeatViper</a>
+</div>
+</div>
+<a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="index.html">Home</a>
+<a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="careers.html">Careers</a>
+<a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="aboutus.html">About</a>
+<a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="contactus.html">Contact</a>
+</nav>
+<button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</div>
+<div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 z-30">
+<nav class="p-4 space-y-2">
+<div>
+<button id="mobileProductsBtn" class="w-full flex items-center justify-between px-2 py-2 text-gray-200">Products
+<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+</button>
+<div id="mobileProductsMenu" class="hidden pl-4 mt-1">
+<a href="pdp1.html" class="block px-2 py-2 text-gray-200">Hawkeye</a>
+<a href="pdp2.html" class="block px-2 py-2 text-gray-200">SkyDrop</a>
+<a href="pdp3.html" class="block px-2 py-2 text-gray-200">HeatViper</a>
+</div>
+</div>
+<a class="block px-2 py-2 text-gray-200" href="index.html">Home</a>
+<a class="block px-2 py-2 text-gray-200" href="careers.html">Careers</a>
+<a class="block px-2 py-2 text-gray-200" href="aboutus.html">About</a>
+<a class="block px-2 py-2 text-gray-200" href="contactus.html">Contact</a>
+</nav>
+</div>
+</header>
+<main class="flex-1">
+<div class="px-6 py-16">
+<div class="mx-auto max-w-6xl">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-4">
+<div class="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-2xl min-h-[480px]" style='background-image: url("pdp3.png");'>
+</div>
+<p class="text-gray-400 text-xs italic">Disclaimer: The drone depicted in this imagery is a conceptual representation. Actual product design and features may vary upon final release.</p>
+</div>
+<div>
+<h2 class="text-gray-200 text-2xl font-bold leading-tight tracking-[-0.015em] mb-4">Specifications</h2>
+<div class="grid grid-cols-2 gap-x-8 gap-y-4 border-t border-gray-800 pt-4">
+<div class="flex flex-col gap-1">
+<p class="text-gray-400 text-sm">Control Range</p>
+<p class="text-gray-200 text-base font-medium">5 km</p>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-gray-400 text-sm">Flight Time</p>
+<p class="text-gray-200 text-base font-medium">25 minutes</p>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-gray-400 text-sm">Camera Type</p>
+<p class="text-gray-200 text-base font-medium">Thermal IR</p>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-gray-400 text-sm">Detection Mode</p>
+<p class="text-gray-200 text-base font-medium">Heat Signature</p>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-gray-400 text-sm">Navigation</p>
+<p class="text-gray-200 text-base font-medium">GPS Autonomous</p>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-gray-400 text-sm">Operation</p>
+<p class="text-gray-200 text-base font-medium">Stealth/Low-Noise</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-10 sticky top-16">
+<div class="flex flex-col gap-4">
+<h1 class="text-white text-4xl font-bold leading-tight tracking-tighter">HeatViper - Thermal Patrol Drone</h1>
+<p class="text-gray-400 text-lg leading-relaxed">HeatViper is a high-performance thermal surveillance drone designed for long-range patrolling and night-time monitoring. With precision thermal imaging and 5 km range, it delivers crystal-clear heat signatures for accurate detection in complete darkness.</p>
+</div>
+<div>
+<h2 class="text-gray-200 text-2xl font-bold leading-tight mb-6">Key Features</h2>
+<div class="grid grid-cols-2 gap-6">
+<div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+<span class="material-symbols-outlined text-2xl text-[var(--primary-color)]">thermal_camera</span>
+<div>
+<h3 class="text-gray-200 text-lg font-bold">Thermal Imaging</h3>
+<p class="text-gray-400 text-sm mt-1">High-clarity IR camera captures heat signatures from long distances.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+<span class="material-symbols-outlined text-3xl text-[var(--primary-color)]">settings_remote</span>
+<div>
+<h3 class="text-gray-200 text-lg font-bold">5 km Range</h3>
+<p class="text-gray-400 text-sm mt-1">Stable long-range connectivity for live monitoring over large areas.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+<span class="material-symbols-outlined text-3xl text-[var(--primary-color)]">schedule</span>
+<div>
+<h3 class="text-gray-200 text-lg font-bold">25-Min Endurance</h3>
+<p class="text-gray-400 text-sm mt-1">Extended flight time for continuous patrol without frequent landings.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+<span class="material-symbols-outlined text-3xl text-[var(--primary-color)]">volume_off</span>
+<div>
+<h3 class="text-gray-200 text-lg font-bold">Stealth Operation</h3>
+<p class="text-gray-400 text-sm mt-1">Minimal sound signature for covert night operations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8">
+<a class="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-wide hover:bg-red-700 transition-colors" href="contactus.html">
+<span class="truncate">Request a Quote</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-gray-900 border-t border-gray-800">
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col items-center space-y-6">
+<div class="flex items-center gap-3 text-white">
+<svg class="h-7 w-7 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.23L19.5 9.5V14.5L12 19.77L4.5 14.5V9.5L12 4.23ZM11 10V14H13V10H11ZM11 15V17H13V15H11Z"></path>
+</svg>
+<h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+<a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Privacy Policy</a>
+<a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Terms of Service</a>
+<a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Contact Us</a>
+</div>
+<p class="text-gray-500 text-sm">© 2023 MICROPTOR. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</div>
+<script src="assets/header.js"></script>
+</body>
+</html>

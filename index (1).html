@@ -1,0 +1,804 @@
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #EF4444;
+        --secondary-color: #111827;
+      }
+</style>
+<style>
+/* ========== INTERACTIVE SCROLL INDICATOR - DESKTOP ONLY ========== */
+.scroll-indicator {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    gap: 8px;
+    transition: opacity 0.4s ease;
+    cursor: pointer;
+  }
+
+  .scroll-indicator.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .drone-wrapper {
+    position: relative;
+    width: 50px;
+    height: 50px;
+  }
+
+  .radar-ping {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    opacity: 0;
+    animation: radarPing 2s ease-out infinite;
+  }
+
+  .radar-ping:nth-child(2) { animation-delay: 0.6s; }
+  .radar-ping:nth-child(3) { animation-delay: 1.2s; }
+
+  @keyframes radarPing {
+    0% { transform: scale(0.5); opacity: 0.8; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  .drone-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    color: var(--primary-color);
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
+    transition: all 0.3s ease;
+    animation: droneFloat 3s ease-in-out infinite;
+  }
+
+  .scroll-indicator:hover .drone-icon {
+    transform: translate(-50%, -50%) scale(1.2);
+    filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.9));
+  }
+
+  @keyframes droneFloat {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) translateY(-3px) rotate(2deg); }
+    75% { transform: translate(-50%, -50%) translateY(3px) rotate(-2deg); }
+  }
+
+  .flight-track {
+    width: 3px;
+    height: 100px;
+    background: linear-gradient(to bottom, 
+      transparent,
+      rgba(239, 68, 68, 0.1) 20%,
+      rgba(239, 68, 68, 0.3) 50%,
+      rgba(239, 68, 68, 0.1) 80%,
+      transparent
+    );
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .track-drone {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 
+      0 0 10px var(--primary-color),
+      0 0 20px var(--primary-color),
+      0 -10px 15px rgba(239, 68, 68, 0.3);
+    animation: flyDown 2.5s ease-in-out infinite;
+  }
+
+  .track-drone::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 30px;
+    background: linear-gradient(to bottom, var(--primary-color), transparent);
+  }
+
+  @keyframes flyDown {
+    0% { top: -10px; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100px; opacity: 0; }
+  }
+
+  .scroll-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .scroll-indicator:hover .scroll-text {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  }
+
+  .scroll-chevrons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .chevron {
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid rgba(239, 68, 68, 0.4);
+    border-bottom: 2px solid rgba(239, 68, 68, 0.4);
+    transform: rotate(45deg);
+    animation: chevronBounce 1.5s ease-in-out infinite;
+  }
+
+  .chevron:nth-child(1) { animation-delay: 0s; }
+  .chevron:nth-child(2) { animation-delay: 0.15s; opacity: 0.6; }
+  .chevron:nth-child(3) { animation-delay: 0.3s; opacity: 0.3; }
+
+  @keyframes chevronBounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.3; }
+    50% { transform: rotate(45deg) translateY(3px); opacity: 1; }
+  }
+
+  .scroll-indicator:hover .chevron {
+    border-color: var(--primary-color);
+  }
+}
+
+/* ========== THERMAL VISION SECTION ========== */
+.thermal-section {
+  position: relative;
+  min-height: 600px;
+  background: #0a0a0f;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.thermal-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 100, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 100, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.thermal-spotlight {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 200, 50, 0.2) 20%,
+    rgba(255, 100, 0, 0.15) 40%,
+    rgba(255, 0, 0, 0.1) 60%,
+    rgba(100, 0, 150, 0.05) 80%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+  z-index: 10;
+}
+
+.thermal-section:hover .thermal-spotlight {
+  opacity: 1;
+}
+
+.thermal-ring {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 2px solid rgba(255, 100, 0, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 11;
+}
+
+.thermal-section:hover .thermal-ring {
+  opacity: 1;
+  animation: thermalPulse 1.5s ease-out infinite;
+}
+
+@keyframes thermalPulse {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; border-color: rgba(255, 255, 255, 0.6); }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; border-color: rgba(255, 0, 0, 0.2); }
+}
+
+.thermal-target {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.thermal-target::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 150, 50, 0.15) 0%,
+    rgba(255, 50, 0, 0.08) 30%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.thermal-target:hover::before {
+  opacity: 1;
+}
+
+.thermal-target:hover {
+  border-color: rgba(255, 100, 0, 0.3);
+  box-shadow: 
+    0 0 30px rgba(255, 100, 0, 0.1),
+    inset 0 0 30px rgba(255, 100, 0, 0.05);
+}
+
+.thermal-target .icon-wrap {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 100, 0, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.4s ease;
+}
+
+.thermal-target:hover .icon-wrap {
+  background: rgba(255, 100, 0, 0.25);
+  box-shadow: 0 0 20px rgba(255, 100, 0, 0.3);
+}
+
+.thermal-target .icon-wrap span {
+  color: rgba(255, 150, 100, 0.6);
+  font-size: 24px;
+  transition: all 0.4s ease;
+}
+
+.thermal-target:hover .icon-wrap span {
+  color: #ff9944;
+  text-shadow: 0 0 10px rgba(255, 150, 0, 0.5);
+}
+
+.thermal-target h4 {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  transition: all 0.4s ease;
+}
+
+.thermal-target:hover h4 {
+  color: #ff9944;
+  text-shadow: 0 0 15px rgba(255, 150, 0, 0.4);
+}
+
+.thermal-target p {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  transition: all 0.4s ease;
+}
+
+.thermal-target:hover p {
+  color: rgba(255, 200, 150, 0.7);
+}
+
+.thermal-target .bracket {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+}
+
+.thermal-target .bracket-tl { top: 8px; left: 8px; border-top-color: rgba(255,100,0,0.2); border-left-color: rgba(255,100,0,0.2); }
+.thermal-target .bracket-tr { top: 8px; right: 8px; border-top-color: rgba(255,100,0,0.2); border-right-color: rgba(255,100,0,0.2); }
+.thermal-target .bracket-bl { bottom: 8px; left: 8px; border-bottom-color: rgba(255,100,0,0.2); border-left-color: rgba(255,100,0,0.2); }
+.thermal-target .bracket-br { bottom: 8px; right: 8px; border-bottom-color: rgba(255,100,0,0.2); border-right-color: rgba(255,100,0,0.2); }
+
+.thermal-target:hover .bracket {
+  border-color: rgba(255, 150, 0, 0.6);
+}
+
+.thermal-hud {
+  position: absolute;
+  font-family: monospace;
+  font-size: 10px;
+  color: rgba(0, 255, 100, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  pointer-events: none;
+}
+
+.thermal-hud-tl { top: 20px; left: 20px; }
+.thermal-hud-tr { top: 20px; right: 20px; text-align: right; }
+.thermal-hud-bl { bottom: 20px; left: 20px; }
+.thermal-hud-br { bottom: 20px; right: 20px; text-align: right; }
+
+.temp-indicator {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(20px, -50%);
+  font-family: monospace;
+  font-size: 12px;
+  color: #ff6600;
+  text-shadow: 0 0 10px rgba(255, 100, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 12;
+  white-space: nowrap;
+}
+
+.thermal-section:hover .temp-indicator {
+  opacity: 1;
+}
+</style>
+</head>
+<body class="bg-[var(--secondary-color)]" style='font-family: "Roboto", "Public Sans", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+
+<!-- Scroll Indicator (Desktop Only) -->
+<div class="scroll-indicator" id="scrollIndicator">
+  <div class="drone-wrapper">
+    <div class="radar-ping"></div>
+    <div class="radar-ping"></div>
+    <div class="radar-ping"></div>
+    <svg class="drone-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C12.5523 2 13 2.44772 13 3V5.07089C14.4021 5.29432 15.6795 5.91137 16.7071 6.80712L18.2929 5.22134C18.6834 4.83082 19.3166 4.83082 19.7071 5.22134C20.0976 5.61187 20.0976 6.24503 19.7071 6.63556L18.1213 8.22134C19.0175 9.24934 19.6349 10.5272 19.858 11.93H22C22.5523 11.93 23 12.3777 23 12.93C23 13.4823 22.5523 13.93 22 13.93H19.858C19.6349 15.3328 19.0175 16.6107 18.1213 17.6387L19.7071 19.2244C20.0976 19.615 20.0976 20.2481 19.7071 20.6387C19.3166 21.0292 18.6834 21.0292 18.2929 20.6387L16.7071 19.0529C15.6795 19.9486 14.4021 20.5657 13 20.7891V23C13 23.5523 12.5523 24 12 24C11.4477 24 11 23.5523 11 23V20.7891C9.59787 20.5657 8.32055 19.9486 7.29289 19.0529L5.70711 20.6387C5.31658 21.0292 4.68342 21.0292 4.29289 20.6387C3.90237 20.2481 3.90237 19.615 4.29289 19.2244L5.87868 17.6387C4.98251 16.6107 4.36512 15.3328 4.14201 13.93H2C1.44772 13.93 1 13.4823 1 12.93C1 12.3777 1.44772 11.93 2 11.93H4.14201C4.36512 10.5272 4.98251 9.24934 5.87868 8.22134L4.29289 6.63556C3.90237 6.24503 3.90237 5.61187 4.29289 5.22134C4.68342 4.83082 5.31658 4.83082 5.70711 5.22134L7.29289 6.80712C8.32055 5.91137 9.59787 5.29432 11 5.07089V3C11 2.44772 11.4477 2 12 2ZM12 8C9.23858 8 7 10.2386 7 13C7 15.7614 9.23858 18 12 18C14.7614 18 17 15.7614 17 13C17 10.2386 14.7614 8 12 8Z"/>
+    </svg>
+  </div>
+  <div class="flight-track">
+    <div class="track-drone"></div>
+  </div>
+  <span class="scroll-text">Explore</span>
+  <div class="scroll-chevrons">
+    <div class="chevron"></div>
+    <div class="chevron"></div>
+    <div class="chevron"></div>
+  </div>
+</div>
+
+<header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-gray-800 absolute top-0 left-0 right-0 z-50 bg-black/50">
+  <div class="flex items-center gap-3 text-white">
+  <a href="index.html" class="flex items-center gap-3">
+      <svg class="h-6 w-6 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.15L19.85 9L12 13.85L4.15 9L12 4.15ZM13 10V14.5L18 12L13 10ZM6 12L11 14.5V10L6 12Z"></path></svg>
+      <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+    </a>
+  </div>
+  <div class="flex items-center gap-4">
+    <nav class="hidden md:flex items-center gap-8">
+      <div class="relative">
+        <button data-products-btn class="flex items-center gap-2 text-gray-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded">
+          <span>Products</span>
+          <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div data-products-menu class="hidden absolute right-0 mt-2 w-44 bg-gray-800 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5">
+          <a href="pdp1.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">Hawkeye</a>
+          <a href="pdp2.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">SkyDrop</a>
+          <a href="pdp3.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">HeatViper</a>
+        </div>
+      </div>
+  <a class="text-white text-sm font-bold border-b-2 border-[var(--primary-color)] pb-1" href="index.html">Home</a>
+      <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="careers.html">Careers</a>
+      <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="aboutus.html">About</a>
+      <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="contactus.html">Contact</a>
+    </nav>
+    <button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 z-30">
+    <nav class="p-4 space-y-2">
+      <div>
+        <button id="mobileProductsBtn" class="w-full flex items-center justify-between px-2 py-2 text-gray-200">Products
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div id="mobileProductsMenu" class="hidden pl-4 mt-1">
+          <a href="pdp1.html" class="block px-2 py-2 text-gray-200">Hawkeye</a>
+          <a href="pdp2.html" class="block px-2 py-2 text-gray-200">SkyDrop</a>
+          <a href="pdp3.html" class="block px-2 py-2 text-gray-200">HeatViper</a>
+        </div>
+      </div>
+  <a class="block px-2 py-2 text-gray-200" href="index.html">Home</a>
+      <a class="block px-2 py-2 text-gray-200" href="careers.html">Careers</a>
+      <a class="block px-2 py-2 text-gray-200" href="aboutus.html">About</a>
+      <a class="block px-2 py-2 text-gray-200" href="contactus.html">Contact</a>
+        <div class="flex gap-3 mt-2 px-2">
+        <a href="pdp1.html" class="flex-1 text-center px-3 py-2 bg-[var(--primary-color)] rounded text-white">Hawkeye</a>
+        <a href="pdp2.html" class="flex-1 text-center px-3 py-2 bg-gray-800 rounded text-white">SkyDrop</a>
+        <a href="pdp3.html" class="flex-1 text-center px-3 py-2 bg-[var(--primary-color)] rounded text-white">HeatViper</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main class="flex-1 w-full relative">
+<div class="absolute inset-0 bg-[var(--secondary-color)]"></div>
+<div class="relative z-10">
+  <section class="flex flex-col items-center justify-center min-h-screen text-center p-8">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <p class="text-sm uppercase tracking-[0.3em] text-gray-400">Defense-Grade Drone Fleet</p>
+      <h1 class="text-white text-5xl md:text-7xl font-black tracking-tighter">MICROPTOR</h1>
+      <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+        Integrated aerial systems that secure perimeters, deliver precision payloads, and reveal thermal threats—built for teams that need autonomous coverage and rapid response without compromise.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a class="flex min-w-[140px] items-center justify-center rounded-md h-12 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-wide hover:bg-red-700 transition-all duration-300 transform hover:scale-105" href="contactus.html">
+          <span>Talk to Defense</span>
+        </a>
+        <a class="flex min-w-[140px] items-center justify-center rounded-md h-12 px-6 bg-gray-900 text-white text-base font-bold leading-normal tracking-wide border border-gray-700 hover:border-white transition-all duration-300 transform hover:scale-105" href="aboutus.html">
+          <span>Why Microptor</span>
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center text-xs uppercase text-gray-400 tracking-[0.2em]">
+        <span class="px-3 py-1 rounded-full bg-gray-900/60 border border-gray-800">Autonomous Launch + Patrol</span>
+        <span class="px-3 py-1 rounded-full bg-gray-900/60 border border-gray-800">Precision Payload Delivery</span>
+        <span class="px-3 py-1 rounded-full bg-gray-900/60 border border-gray-800">Thermal Detection at Range</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-6 md:px-10 lg:px-20 bg-black/40 border-t border-b border-gray-800">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div>
+          <p class="text-[var(--primary-color)] font-semibold text-sm">Mission Profiles</p>
+          <h2 class="text-white text-3xl md:text-4xl font-bold tracking-tight">One fleet, three ways to own the sky</h2>
+        </div>
+        <a href="contactus.html" class="inline-flex items-center gap-2 text-sm text-white font-semibold hover:text-[var(--primary-color)] transition-colors">
+          Book a mission design call
+          <span class="material-symbols-outlined text-base align-middle">arrow_outward</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="border border-gray-800 bg-gray-900/40 rounded-2xl p-6 flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">shield_person</span>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-gray-400">Autonomous Security</p>
+              <h3 class="text-white text-xl font-bold">Hawkeye</h3>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Launches itself, patrols, follows, and deters—perfect for 24/7 perimeter security and rapid incident response.</p>
+          <ul class="text-gray-300 text-sm space-y-2">
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">task_alt</span><span>Auto launch &amp; recovery for zero-lag deployment.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">visibility</span><span>Live monitoring and intelligent subject tracking.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">bolt</span><span>Deterrent-ready to interrupt intrusions before they escalate.</span></li>
+          </ul>
+          <a href="pdp1.html" class="mt-auto inline-flex items-center justify-center h-11 px-4 rounded-full bg-[var(--primary-color)] text-white text-sm font-bold hover:bg-red-700 transition-colors">Explore Hawkeye</a>
+        </div>
+        <div class="border border-gray-800 bg-gray-900/40 rounded-2xl p-6 flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">my_location</span>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-gray-400">Precision Payload</p>
+              <h3 class="text-white text-xl font-bold">SkyDrop</h3>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">GPS-guided strike and delivery drone engineered to place up to 5 kg exactly where it's needed—while operators stay out of harm's way.</p>
+          <ul class="text-gray-300 text-sm space-y-2">
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">gps_fixed</span><span>Pinpoint drops with 10 km range corridors.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">timer</span><span>60-minute endurance to loiter, confirm, and execute.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">inventory_2</span><span>5 kg payload capacity for munitions or critical supplies.</span></li>
+          </ul>
+          <a href="pdp2.html" class="mt-auto inline-flex items-center justify-center h-11 px-4 rounded-full bg-[var(--primary-color)] text-white text-sm font-bold hover:bg-red-700 transition-colors">Explore SkyDrop</a>
+        </div>
+        <div class="border border-gray-800 bg-gray-900/40 rounded-2xl p-6 flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">visibility_off</span>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-gray-400">Thermal Patrol</p>
+              <h3 class="text-white text-xl font-bold">HeatViper</h3>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Stealth thermal surveillance with long-range IR clarity—built for night patrols, search, and overwatch in zero-visibility conditions.</p>
+          <ul class="text-gray-300 text-sm space-y-2">
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">thermal_camera</span><span>Thermal IR sensor locks on heat signatures.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">settings_remote</span><span>Stable link and detection out to 5 km.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[var(--primary-color)] text-base mt-[2px]">schedule</span><span>25-minute endurance with low-noise flight profile.</span></li>
+          </ul>
+          <a href="pdp3.html" class="mt-auto inline-flex items-center justify-center h-11 px-4 rounded-full bg-[var(--primary-color)] text-white text-sm font-bold hover:bg-red-700 transition-colors">Explore HeatViper</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-6 md:px-10 lg:px-20">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="border border-gray-800 bg-gray-900/40 rounded-2xl p-6">
+        <p class="text-gray-400 text-sm uppercase tracking-[0.2em] mb-2">Rapid Response</p>
+        <h3 class="text-white text-3xl font-black mb-3">Launch in Seconds</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">Autonomous launch, return, and self-guided patrol keep teams informed without waiting for pilots to spin up.</p>
+      </div>
+      <div class="border border-gray-800 bg-gray-900/40 rounded-2xl p-6">
+        <p class="text-gray-400 text-sm uppercase tracking-[0.2em] mb-2">Precision Delivery</p>
+        <h3 class="text-white text-3xl font-black mb-3">5 kg · 10 km</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">GPS targeting with 60-minute endurance lets you stage supplies or payloads exactly where ground teams need them.</p>
+      </div>
+      <div class="border border-gray-800 bg-gray-900/40 rounded-2xl p-6">
+        <p class="text-gray-400 text-sm uppercase tracking-[0.2em] mb-2">Thermal Dominance</p>
+        <h3 class="text-white text-3xl font-black mb-3">5 km IR Eyes</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">HeatViper's thermal optics and stealth profile expose movement in total darkness without giving away position.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-6 md:px-10 lg:px-20 bg-gray-900/40 border-t border-b border-gray-800">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
+      <div class="space-y-4">
+        <p class="text-[var(--primary-color)] font-semibold text-sm">Built for modern defense teams</p>
+        <h2 class="text-white text-3xl md:text-4xl font-bold leading-tight">From perimeter to precision—Microptor covers the full mission</h2>
+        <p class="text-gray-300 leading-relaxed">Choose the airframe that fits the mission or deploy the full fleet for layered awareness. Every platform shares encrypted control links, streamlined training, and a fast path to deployment.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)]">lock</span>
+            <div>
+              <p class="text-white font-semibold">Secure by design</p>
+              <p class="text-gray-400 text-sm">Encrypted comms and GPS guidance keep missions resilient.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)]">hub</span>
+            <div>
+              <p class="text-white font-semibold">Plug-and-play ops</p>
+              <p class="text-gray-400 text-sm">Common controls and checklists shorten training time.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)]">visibility</span>
+            <div>
+              <p class="text-white font-semibold">Live oversight</p>
+              <p class="text-gray-400 text-sm">Real-time video and telemetry feed your command stack.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)]">support</span>
+            <div>
+              <p class="text-white font-semibold">Mission support</p>
+              <p class="text-gray-400 text-sm">Deployment playbooks, maintenance guidance, and on-call assistance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="border border-gray-800 bg-black/50 rounded-2xl p-5">
+          <p class="text-white font-semibold mb-2">Base &amp; Border Security</p>
+          <p class="text-gray-400 text-sm">Autonomous patrols with Hawkeye and HeatViper maintain uninterrupted coverage and verify alarms faster.</p>
+        </div>
+        <div class="border border-gray-800 bg-black/50 rounded-2xl p-5">
+          <p class="text-white font-semibold mb-2">Convoy &amp; Resupply</p>
+          <p class="text-gray-400 text-sm">SkyDrop carries critical payloads across 10 km corridors without exposing personnel.</p>
+        </div>
+        <div class="border border-gray-800 bg-black/50 rounded-2xl p-5">
+          <p class="text-white font-semibold mb-2">Night Search &amp; Rescue</p>
+          <p class="text-gray-400 text-sm">Thermal detection spots survivors or intruders even in smoke, fog, or darkness.</p>
+        </div>
+        <div class="border border-gray-800 bg-black/50 rounded-2xl p-5">
+          <p class="text-white font-semibold mb-2">Critical Infrastructure</p>
+          <p class="text-gray-400 text-sm">Layered aerial overwatch for ports, grids, depots, and high-value assets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THERMAL VISION SECTION ========== -->
+  <section class="thermal-section py-20 px-6 md:px-10 lg:px-20">
+    <!-- Background effects -->
+    <div class="thermal-grid"></div>
+    
+    <!-- Mouse-following spotlight -->
+    <div class="thermal-spotlight" id="thermalSpotlight"></div>
+    <div class="thermal-ring" id="thermalRing"></div>
+    <div class="temp-indicator" id="tempIndicator">HEAT SIG: 37.2°C</div>
+    
+    <!-- HUD overlay text -->
+    <div class="thermal-hud thermal-hud-tl">
+      <div>IR MODE: ACTIVE</div>
+      <div>SENSITIVITY: HIGH</div>
+    </div>
+    <div class="thermal-hud thermal-hud-tr">
+      <div>FLIR OPTICS</div>
+      <div>640×480 RES</div>
+    </div>
+    <div class="thermal-hud thermal-hud-bl">
+      <div>RANGE: 5KM</div>
+      <div>LOCK: STANDBY</div>
+    </div>
+    <div class="thermal-hud thermal-hud-br">
+      <div>TEMP RANGE</div>
+      <div>-40°C TO 550°C</div>
+    </div>
+    
+    <!-- Content -->
+    <div class="max-w-6xl mx-auto relative z-20">
+      <div class="text-center mb-12">
+        <p class="text-orange-500/60 font-semibold text-sm uppercase tracking-widest mb-3">Thermal Detection</p>
+        <h2 class="text-white/80 text-3xl md:text-4xl font-bold mb-4">See What Others Can't</h2>
+        <p class="text-white/30 max-w-2xl mx-auto">Move your cursor to reveal heat signatures. HeatViper's IR sensors detect threats invisible to the naked eye.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="thermal-target">
+          <div class="bracket bracket-tl"></div>
+          <div class="bracket bracket-tr"></div>
+          <div class="bracket bracket-bl"></div>
+          <div class="bracket bracket-br"></div>
+          <div class="icon-wrap">
+            <span class="material-symbols-outlined">nightlight</span>
+          </div>
+          <h4>Zero-Light Operation</h4>
+          <p>Complete visibility in total darkness—no illumination required.</p>
+        </div>
+        
+        <div class="thermal-target">
+          <div class="bracket bracket-tl"></div>
+          <div class="bracket bracket-tr"></div>
+          <div class="bracket bracket-bl"></div>
+          <div class="bracket bracket-br"></div>
+          <div class="icon-wrap">
+            <span class="material-symbols-outlined">person_search</span>
+          </div>
+          <h4>Body Heat Detection</h4>
+          <p>Identify human signatures through foliage, smoke, and camouflage.</p>
+        </div>
+        
+        <div class="thermal-target">
+          <div class="bracket bracket-tl"></div>
+          <div class="bracket bracket-tr"></div>
+          <div class="bracket bracket-bl"></div>
+          <div class="bracket bracket-br"></div>
+          <div class="icon-wrap">
+            <span class="material-symbols-outlined">directions_car</span>
+          </div>
+          <h4>Vehicle Tracking</h4>
+          <p>Detect engine heat and track movement even after vehicles stop.</p>
+        </div>
+        
+        <div class="thermal-target">
+          <div class="bracket bracket-tl"></div>
+          <div class="bracket bracket-tr"></div>
+          <div class="bracket bracket-bl"></div>
+          <div class="bracket bracket-br"></div>
+          <div class="icon-wrap">
+            <span class="material-symbols-outlined">emergency_heat</span>
+          </div>
+          <h4>Fire Detection</h4>
+          <p>Spot thermal anomalies and fire hazards before they spread.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 px-6 md:px-10 lg:px-20">
+    <div class="max-w-5xl mx-auto bg-gradient-to-r from-red-900/40 via-black/70 to-gray-900/60 border border-red-900/40 rounded-3xl p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div class="space-y-2">
+        <p class="text-gray-300 text-sm uppercase tracking-[0.2em]">Ready to deploy</p>
+        <h3 class="text-white text-3xl font-bold leading-tight">Let's tailor a flight plan for your mission</h3>
+        <p class="text-gray-300 text-sm max-w-2xl">Tell us your area of responsibility and we'll map the right mix of Hawkeye, SkyDrop, and HeatViper to secure it.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a class="inline-flex items-center justify-center rounded-full h-12 px-6 bg-[var(--primary-color)] text-white text-sm font-bold hover:bg-red-700 transition-colors" href="contactus.html">Schedule a Call</a>
+        <a class="inline-flex items-center justify-center rounded-full h-12 px-6 bg-gray-900 text-white text-sm font-bold border border-gray-700 hover:border-white transition-colors" href="careers.html">Join the Team</a>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+</div>
+</div>
+
+<script>
+// Hide scroll indicator after scrolling past hero section
+const scrollIndicator = document.getElementById('scrollIndicator');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > window.innerHeight * 0.5) {
+    scrollIndicator.classList.add('hidden');
+  } else {
+    scrollIndicator.classList.remove('hidden');
+  }
+});
+
+// Smooth scroll when clicking the indicator
+scrollIndicator.addEventListener('click', () => {
+  window.scrollTo({
+    top: window.innerHeight,
+    behavior: 'smooth'
+  });
+});
+
+// Thermal section mouse tracking
+const thermalSection = document.querySelector('.thermal-section');
+const thermalSpotlight = document.getElementById('thermalSpotlight');
+const thermalRing = document.getElementById('thermalRing');
+const tempIndicator = document.getElementById('tempIndicator');
+
+if (thermalSection) {
+  thermalSection.addEventListener('mousemove', (e) => {
+    const rect = thermalSection.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Move spotlight
+    thermalSpotlight.style.left = x + 'px';
+    thermalSpotlight.style.top = y + 'px';
+    
+    // Move ring
+    thermalRing.style.left = x + 'px';
+    thermalRing.style.top = y + 'px';
+    
+    // Move temp indicator
+    tempIndicator.style.left = x + 'px';
+    tempIndicator.style.top = y + 'px';
+    
+    // Randomize temperature slightly for effect
+    const baseTemp = 35 + Math.random() * 5;
+    tempIndicator.textContent = `HEAT SIG: ${baseTemp.toFixed(1)}°C`;
+  });
+  
+  // Update thermal target cards with mouse position for inner glow
+  const thermalTargets = document.querySelectorAll('.thermal-target');
+  thermalTargets.forEach(target => {
+    target.addEventListener('mousemove', (e) => {
+      const rect = target.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      target.style.setProperty('--mouse-x', x + '%');
+      target.style.setProperty('--mouse-y', y + '%');
+    });
+  });
+}
+</script>
+<script src="assets/header.js"></script>
+</body></html>

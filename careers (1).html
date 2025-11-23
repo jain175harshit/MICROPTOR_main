@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MICROPTOR — Careers</title>
+  <link crossorigin href="https://fonts.gstatic.com/" rel="preconnect" />
+  <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Public+Sans:wght@400;600;700" onload="this.rel='stylesheet'" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style type="text/tailwindcss">
+      :root {
+        --primary-color: #ef4444;
+        --neutral-900: #111827;
+        --neutral-800: #1f2937;
+        --neutral-700: #374151;
+        --neutral-600: #4b5563;
+        --neutral-400: #9ca3af;
+        --neutral-50: #f9fafb;
+      }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+  </style>
+</head>
+<body class="bg-[var(--neutral-900)] text-[var(--neutral-50)]" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+  <div class="relative flex min-h-screen flex-col">
+    <div class="layout-container flex h-full grow flex-col">
+      <!-- Header (aligned with about/home patterns) -->
+      <header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-[var(--neutral-800)] bg-black/40 backdrop-blur">
+        <a class="flex items-center gap-3 text-white" href="index.html">
+          <svg class="h-7 w-7 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.23L19.5 9.5V14.5L12 19.77L4.5 14.5V9.5L12 4.23ZM11 10V14H13V10H11ZM11 15V17H13V15H11Z"></path></svg>
+          <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+        </a>
+        <nav class="hidden md:flex items-center gap-8">
+          <div class="relative">
+            <button data-products-btn class="flex items-center gap-2 text-gray-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded">
+              <span>Products</span>
+              <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div data-products-menu class="hidden absolute right-0 mt-2 w-44 bg-[var(--neutral-800)] rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5">
+              <a href="pdp1.html" class="block px-4 py-2 text-[var(--neutral-50)] hover:bg-[var(--neutral-700)]">Hawkeye</a>
+              <a href="pdp2.html" class="block px-4 py-2 text-[var(--neutral-50)] hover:bg-[var(--neutral-700)]">SkyDrop</a>
+                <a href="pdp3.html" class="block px-4 py-2 text-[var(--neutral-50)] hover:bg-[var(--neutral-700)]">HeatViper</a>
+            </div>
+          </div>
+          <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="index.html">Home</a>
+          <a class="text-white text-sm font-bold border-b-2 border-[var(--primary-color)] pb-1" href="careers.html">Careers</a>
+          <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="aboutus.html">About</a>
+          <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="contactus.html">Contact</a>
+        </nav>
+        <button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 z-30">
+          <nav class="p-4 space-y-2">
+            <div>
+              <button id="mobileProductsBtn" class="w-full flex items-center justify-between px-2 py-2 text-gray-200">Products
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div id="mobileProductsMenu" class="hidden pl-4 mt-1">
+                <a href="pdp1.html" class="block px-2 py-2 text-gray-200">Hawkeye</a>
+                <a href="pdp2.html" class="block px-2 py-2 text-gray-200">SkyDrop</a>
+                  <a href="pdp3.html" class="block px-2 py-2 text-gray-200">HeatViper</a>
+              </div>
+            </div>
+            <a class="block px-2 py-2 text-gray-200" href="index.html">Home</a>
+            <a class="block px-2 py-2 text-gray-200" href="careers.html">Careers</a>
+            <a class="block px-2 py-2 text-gray-200" href="aboutus.html">About</a>
+            <a class="block px-2 py-2 text-gray-200" href="contactus.html">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="relative overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+          <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-[var(--neutral-900)]"></div>
+        </div>
+        <div class="max-w-6xl mx-auto px-6 pt-24 pb-20 text-center">
+          <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">Build The Future Of Aerial Defense</h1>
+          <p class="mt-4 text-[var(--neutral-300)] max-w-2xl mx-auto">Join a mission-driven team crafting resilient UAV systems, real-time vision, and secure autonomy for critical operations.</p>
+          <div class="mt-8 flex flex-wrap gap-4 justify-center">
+            <a href="#open-roles" class="px-6 py-3 rounded-md bg-[var(--primary-color)] hover:bg-red-600 text-white font-semibold">View Open Roles</a>
+            <a href="apply.html?position=General%20Application" class="px-6 py-3 rounded-md border border-[var(--neutral-700)] text-white font-semibold">Send Resume</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filters + Jobs -->
+      <main class="flex-1 px-6 py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <h2 id="open-roles" class="text-2xl md:text-3xl font-bold">Open Positions</h2>
+              <p class="text-[var(--neutral-400)]">Search by team, location, and type.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full md:w-auto">
+              <select id="filterTeam" class="bg-[var(--neutral-800)] border border-[var(--neutral-700)] rounded-md px-3 py-2 text-[var(--neutral-50)]">
+                <option value="">All Teams</option>
+                <option>Embedded</option>
+                <option>Computer Vision</option>
+                <option>Field Ops</option>
+              </select>
+              <select id="filterLocation" class="bg-[var(--neutral-800)] border border-[var(--neutral-700)] rounded-md px-3 py-2 text-[var(--neutral-50)]">
+                <option value="">All Locations</option>
+                <option>Surat</option>
+              </select>
+              <select id="filterType" class="bg-[var(--neutral-800)] border border-[var(--neutral-700)] rounded-md px-3 py-2 text-[var(--neutral-50)]">
+                <option value="">Any Type</option>
+                <option>Full-time</option>
+                <option>Part-time</option>
+              </select>
+              <input id="filterSearch" placeholder="Search roles…" class="bg-[var(--neutral-800)] border border-[var(--neutral-700)] rounded-md px-3 py-2 text-[var(--neutral-50)]"/>
+            </div>
+          </div>
+
+          <div id="jobsList" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Jobs are rendered by inline JSON + JS for easy editing -->
+          </div>
+
+          <div id="noResults" class="hidden mt-8 text-center text-[var(--neutral-400)]">No matching roles right now. Send us your resume!</div>
+
+          <!-- Benefits -->
+          <section class="mt-16">
+            <h3 class="text-2xl font-bold mb-6">Benefits</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="p-6 bg-[var(--neutral-800)] rounded-lg border border-[var(--neutral-700)]">
+                <h4 class="font-semibold">Impactful Work</h4>
+                <p class="text-[var(--neutral-400)] mt-2">Ship products that matter to national security and public safety.</p>
+              </div>
+              <div class="p-6 bg-[var(--neutral-800)] rounded-lg border border-[var(--neutral-700)]">
+                <h4 class="font-semibold">Growth & Mentorship</h4>
+                <p class="text-[var(--neutral-400)] mt-2">Learn directly from senior engineers across autonomy, avionics, and AI.</p>
+              </div>
+              <div class="p-6 bg-[var(--neutral-800)] rounded-lg border border-[var(--neutral-700)]">
+                <h4 class="font-semibold">Competitive Compensation</h4>
+                <p class="text-[var(--neutral-400)] mt-2">Market salaries, performance bonuses, and comprehensive benefits.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Process -->
+          <section class="mt-16">
+            <h3 class="text-2xl font-bold mb-4">Hiring Process</h3>
+            <ol class="list-decimal list-inside text-[var(--neutral-300)] space-y-2">
+              <li>Apply with resume and brief note</li>
+              <li>30-min intro call</li>
+              <li>Technical interview and take-home / onsite</li>
+              <li>Team panel + offer</li>
+            </ol>
+          </section>
+
+          <!-- FAQ -->
+          <section class="mt-16">
+            <h3 class="text-2xl font-bold mb-6">FAQ</h3>
+            <div class="space-y-4">
+              <details class="p-4 rounded border border-[var(--neutral-700)] bg-[var(--neutral-800)]">
+                <summary class="cursor-pointer font-semibold">Do you support remote roles?</summary>
+                <p class="mt-2 text-[var(--neutral-400)]">Yes, many roles are remote-friendly. Field roles require travel.</p>
+              </details>
+              <details class="p-4 rounded border border-[var(--neutral-700)] bg-[var(--neutral-800)]">
+                <summary class="cursor-pointer font-semibold">I don’t meet all requirements. Should I apply?</summary>
+                <p class="mt-2 text-[var(--neutral-400)]">Absolutely. We value potential and learning ability. Apply anyway.</p>
+              </details>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/careers.js"></script>
+  <script src="assets/header.js"></script>
+</body>
+</html>

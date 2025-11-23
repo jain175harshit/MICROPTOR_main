@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>SkyDrop — MICROPTOR</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+:root{
+  --primary-color: #ef4444;
+  --secondary-color: #0b0b0b;
+}
+</style>
+<style>
+/* Targeting System Styles */
+@keyframes crosshair-pulse {
+	0%, 100% { transform: scale(1); opacity: 1; }
+	50% { transform: scale(1.2); opacity: 0.7; }
+}
+@keyframes target-lock {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+@keyframes drone-fly {
+	0% { left: 10%; top: 20%; }
+	100% { left: var(--target-x); top: var(--target-y); }
+}
+@keyframes payload-drop {
+	0% { transform: translateY(0) scale(1); opacity: 1; }
+	100% { transform: translateY(80px) scale(0.5); opacity: 0; }
+}
+@keyframes ripple {
+	0% { transform: scale(0); opacity: 1; }
+	100% { transform: scale(3); opacity: 0; }
+}
+@keyframes scan-vertical {
+	0%, 100% { transform: translateY(-100%); }
+	50% { transform: translateY(100%); }
+}
+@keyframes glow-pulse {
+	0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+	50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.6); }
+}
+.crosshair-pulse {
+	animation: crosshair-pulse 1.5s ease-in-out infinite;
+}
+.target-lock {
+	animation: target-lock 2s linear infinite;
+}
+.glow-pulse {
+	animation: glow-pulse 2s ease-in-out infinite;
+}
+.glass-panel {
+	background: rgba(17, 24, 39, 0.85);
+	backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.coord-input {
+	background: rgba(0, 0, 0, 0.4);
+	border: 1px solid rgba(239, 68, 68, 0.3);
+	transition: all 0.3s ease;
+}
+.coord-input:focus {
+	border-color: #ef4444;
+	box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+	outline: none;
+}
+.map-grid {
+	background-image: 
+		linear-gradient(rgba(239, 68, 68, 0.1) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(239, 68, 68, 0.1) 1px, transparent 1px);
+	background-size: 40px 40px;
+}
+.terrain-overlay {
+	background: 
+		radial-gradient(ellipse at 30% 40%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+		radial-gradient(ellipse at 70% 60%, rgba(34, 197, 94, 0.1) 0%, transparent 40%),
+		radial-gradient(ellipse at 50% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 30%);
+}
+.launch-btn {
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	overflow: hidden;
+}
+.launch-btn::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	transition: width 0.6s, height 0.6s;
+}
+.launch-btn:hover::before {
+	width: 300px;
+	height: 300px;
+}
+.launch-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+.phase-indicator {
+	transition: all 0.5s ease;
+}
+.phase-indicator.active {
+	background: #ef4444;
+	box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+.phase-indicator.complete {
+	background: #22c55e;
+}
+
+/* Custom range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ef4444;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ef4444;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  transition: all 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+}
+
+input[type="range"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+input[type="range"]:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+</style>
+</head>
+<body class="bg-[var(--secondary-color)] text-gray-300" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col overflow-x-hidden">
+  <div class="layout-container flex h-full grow flex-col">
+    <header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-gray-800">
+      <div class="flex items-center gap-3 text-white">
+        <a href="index.html" class="flex items-center gap-3">
+          <svg class="h-8 w-8 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.23L19.5 9.5V14.5L12 19.77L4.5 14.5V9.5L12 4.23ZM11 10V14H13V10H11ZM11 15V17H13V15H11Z"></path></svg>
+          <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+        </a>
+      </div>
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex items-center gap-8">
+          <div class="relative">
+            <button data-products-btn class="flex items-center gap-2 text-white text-sm font-bold border-b-2 border-[var(--primary-color)] pb-1 transition-colors px-2 py-1 rounded">
+              <span>Products</span>
+              <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div data-products-menu class="hidden absolute right-0 mt-2 w-44 bg-gray-800 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5">
+              <a href="pdp1.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">Hawkeye</a>
+              <a href="pdp2.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">SkyDrop</a>
+              <a href="pdp3.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">HeatViper</a>
+            </div>
+          </div>
+          <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="index.html">Home</a>
+          <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="careers.html">Careers</a>
+          <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="aboutus.html">About</a>
+          <a class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium" href="contactus.html">Contact</a>
+        </nav>
+        <button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 z-30">
+        <nav class="p-4 space-y-2">
+          <div>
+            <button id="mobileProductsBtn" class="w-full flex items-center justify-between px-2 py-2 text-gray-200">Products
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="mobileProductsMenu" class="hidden pl-4 mt-1">
+              <a href="pdp1.html" class="block px-2 py-2 text-gray-200">Hawkeye</a>
+              <a href="pdp2.html" class="block px-2 py-2 text-gray-200">SkyDrop</a>
+              <a href="pdp3.html" class="block px-2 py-2 text-gray-200">HeatViper</a>
+            </div>
+          </div>
+          <a class="block px-2 py-2 text-gray-200" href="index.html">Home</a>
+          <a class="block px-2 py-2 text-gray-200" href="careers.html">Careers</a>
+          <a class="block px-2 py-2 text-gray-200" href="aboutus.html">About</a>
+          <a class="block px-2 py-2 text-gray-200" href="contactus.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <div class="px-6 py-16">
+        <div class="mx-auto max-w-6xl">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div class="flex flex-col gap-8">
+              <div class="flex flex-col gap-4">
+                <div class="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-2xl min-h-[480px]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPTpL3UB0NRqBh2-FgQSrMy7RqMl06DkZzPsEsBbEkFfOHpBe5MRctkameYuG7s6vA0zxRzZxE9FQIpWCvk1ajDyKZMIgykcOz9i_y6GcMR2-ZAnjTlnysO8MuY6JSCC1PIP2O0q-MHBMOIB4T4dSrpX-h1SKmDUotoO-6YvbeImKymAlk_q19FVgdQ0kbZb7tOVc730pR7M-5bSeqgkhdxIdvby5wYCVxwbtaapuRZ2umIYz7e6V_A1l8ExLPs6ZVVjaf6rgZtbMQ");'>
+                </div>
+                <p class="text-gray-400 text-xs italic">Disclaimer: The drone depicted in this imagery is a conceptual representation. Actual product design and features may vary upon final release.</p>
+              </div>
+              <div>
+                <h2 class="text-gray-200 text-2xl font-bold leading-tight tracking-[-0.015em] mb-4">Specifications</h2>
+                <div class="grid grid-cols-2 gap-x-8 gap-y-4 border-t border-gray-800 pt-4">
+                  <div class="flex flex-col gap-1">
+                    <p class="text-gray-400 text-sm">Payload Capacity</p>
+                    <p class="text-gray-200 text-base font-medium">Up to 5 kg</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-gray-400 text-sm">Range</p>
+                    <p class="text-gray-200 text-base font-medium">10 km</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-gray-400 text-sm">Flight Time</p>
+                    <p class="text-gray-200 text-base font-medium">60 minutes</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-gray-400 text-sm">Operating Altitude</p>
+                    <p class="text-gray-200 text-base font-medium">Up to 1000 m</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-gray-400 text-sm">Guidance System</p>
+                    <p class="text-gray-200 text-base font-medium">GPS-guided</p>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-gray-400 text-sm">Durability</p>
+                    <p class="text-gray-200 text-base font-medium">Weather-resistant</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-10 sticky top-16">
+              <div class="flex flex-col gap-4">
+                <h1 class="text-white text-4xl font-bold leading-tight tracking-tighter">SkyDrop - Precision Strike Drone</h1>
+                <p class="text-gray-400 text-lg leading-relaxed">The SkyDrop is engineered for precision payload delivery in high-risk environments. Its autonomous operation and GPS-guided targeting ensure accuracy and reliability, making it an indispensable asset for critical missions.</p>
+              </div>
+              <div>
+                <h2 class="text-gray-200 text-2xl font-bold leading-tight mb-6">Key Features</h2>
+                <div class="grid grid-cols-2 gap-6">
+                  <div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+                    <span class="material-symbols-outlined text-3xl text-[var(--primary-color)]">gps_fixed</span>
+                    <div>
+                      <h3 class="text-gray-200 text-lg font-bold">GPS-Guided Targeting</h3>
+                      <p class="text-gray-400 text-sm mt-1">Delivers payloads with pinpoint accuracy using GPS coordinates.</p>
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+                    <span class="material-symbols-outlined text-3xl text-[var(--primary-color)]">air</span>
+                    <div>
+                      <h3 class="text-gray-200 text-lg font-bold">Autonomous Operation</h3>
+                      <p class="text-gray-400 text-sm mt-1">Operates independently, reducing operator risk in hazardous areas.</p>
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+                    <span class="material-symbols-outlined text-3xl text-[var(--primary-color)]">battery_horiz_075</span>
+                    <div>
+                      <h3 class="text-gray-200 text-lg font-bold">Extended Flight Time</h3>
+                      <p class="text-gray-400 text-sm mt-1">Offers extended flight duration for prolonged mission support.</p>
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-3 rounded-lg border border-gray-800 bg-gray-800/50 p-4">
+                    <span class="material-symbols-outlined text-3xl text-[var(--primary-color)]">shield</span>
+                    <div>
+                      <h3 class="text-gray-200 text-lg font-bold">Robust Design</h3>
+                      <p class="text-gray-400 text-sm mt-1">Built to withstand harsh conditions and challenging terrains.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="border-t border-gray-800 pt-8">
+                <a class="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-wide hover:bg-red-700 transition-colors" href="contactus.html">
+                  <span class="truncate">Request a Quote</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE GPS TARGETING SECTION -->
+      <section class="py-20 px-4 md:px-10 lg:px-20 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden">
+        <!-- Background effects -->
+        <div class="absolute inset-0 opacity-30">
+          <div class="absolute top-0 left-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+          <div class="text-center mb-12">
+            <p class="text-red-500 text-sm font-bold tracking-widest uppercase mb-2">Interactive Demo</p>
+            <h2 class="text-white text-4xl md:text-5xl font-bold mb-4">GPS Targeting Simulator</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">Experience SkyDrop's precision targeting system. Click anywhere on the map to set coordinates and watch the drone execute a delivery mission.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Left Control Panel -->
+            <div class="glass-panel rounded-2xl p-6 space-y-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-red-500">satellite_alt</span>
+                </div>
+                <div>
+                  <p class="text-white font-bold">GPS Lock</p>
+                  <p id="gps-status" class="text-green-500 text-xs">12 Satellites</p>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <h3 class="text-white font-bold text-sm uppercase tracking-wide">Target Coordinates</h3>
+                
+                <div class="space-y-3">
+                  <div>
+                    <label class="text-gray-500 text-xs block mb-1">Latitude</label>
+                    <input type="text" id="input-lat" class="coord-input w-full px-4 py-3 rounded-lg text-white font-mono text-sm" placeholder="Click map to set" readonly>
+                  </div>
+                  <div>
+                    <label class="text-gray-500 text-xs block mb-1">Longitude</label>
+                    <input type="text" id="input-lng" class="coord-input w-full px-4 py-3 rounded-lg text-white font-mono text-sm" placeholder="Click map to set" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <h3 class="text-white font-bold text-sm uppercase tracking-wide">Mission Parameters</h3>
+                
+                <div class="p-3 bg-black/30 rounded-lg">
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-400 text-sm">Altitude</span>
+                    <span id="param-altitude" class="text-white font-mono font-bold">120m</span>
+                  </div>
+                  <input type="range" id="altitude-slider" min="50" max="2500" value="120" step="10" class="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-red-500">
+                  <div class="flex justify-between text-xs text-gray-600 mt-1">
+                    <span>50m</span>
+                    <span>2.5km</span>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2 italic">↑ Higher = Slightly faster</p>
+                </div>
+
+                <div class="p-3 bg-black/30 rounded-lg">
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-400 text-sm">Payload</span>
+                    <span id="param-payload" class="text-white font-mono font-bold">2.5kg</span>
+                  </div>
+                  <input type="range" id="payload-slider" min="0.5" max="5" value="2.5" step="0.1" class="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-red-500">
+                  <div class="flex justify-between text-xs text-gray-600 mt-1">
+                    <span>0.5kg</span>
+                    <span>5.0kg</span>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2 italic">↑ Heavier = Slower speed</p>
+                </div>
+
+                <div class="p-3 bg-black/30 rounded-lg border-2 border-red-500/30">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-400 text-sm">ETA</span>
+                    <span id="param-eta" class="text-red-500 font-mono font-bold text-lg">--:--</span>
+                  </div>
+                  <div class="mt-1">
+                    <div class="flex justify-between text-xs">
+                      <span class="text-gray-500">Est. Speed</span>
+                      <span id="est-speed" class="text-gray-400 font-mono">-- m/s</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button id="launch-btn" class="launch-btn w-full py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-500 text-white font-bold uppercase tracking-wide disabled:from-gray-600 disabled:to-gray-700" disabled>
+                <span class="flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined">rocket_launch</span>
+                  Launch Mission
+                </span>
+              </button>
+
+              <button id="reset-btn" class="w-full py-3 rounded-xl border border-gray-700 text-gray-400 font-medium hover:bg-gray-800 transition-colors">
+                Reset Mission
+              </button>
+            </div>
+
+            <!-- Main Map Area -->
+            <div class="lg:col-span-2 glass-panel rounded-2xl p-4 min-h-[500px] flex flex-col">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-red-500">map</span>
+                  <span class="text-white font-bold">Tactical Map</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                  <span class="text-gray-400">Live Feed</span>
+                </div>
+              </div>
+
+              <!-- Interactive Map -->
+              <div id="tactical-map" class="flex-1 relative rounded-xl overflow-hidden bg-gray-950 map-grid cursor-crosshair">
+                <div class="absolute inset-0 terrain-overlay"></div>
+                
+                <!-- Base marker -->
+                <div id="base-marker" class="absolute left-[10%] top-[20%] z-20">
+                  <div class="relative">
+                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                      <span class="material-symbols-outlined text-white text-sm">home</span>
+                    </div>
+                    <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                      <span class="text-blue-400 text-xs font-bold">BASE</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Drone element -->
+                <div id="drone-element" class="absolute left-[10%] top-[20%] z-30 transition-all duration-[3000ms] ease-in-out">
+                  <div class="relative">
+                    <svg class="w-10 h-10 text-red-500 drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]" viewBox="0 0 100 100" fill="currentColor">
+                      <path d="M50 20 L60 30 L90 30 L90 35 L60 35 L55 40 L55 60 L60 65 L90 65 L90 70 L60 70 L50 80 L40 70 L10 70 L10 65 L40 65 L45 60 L45 40 L40 35 L10 35 L10 30 L40 30 Z"/>
+                      <circle cx="50" cy="50" r="6" class="fill-red-400"/>
+                    </svg>
+                    <!-- Payload indicator -->
+                    <div id="payload-indicator" class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-yellow-500 rounded-full border border-yellow-300"></div>
+                  </div>
+                </div>
+
+                <!-- Target marker (hidden initially) -->
+                <div id="target-marker" class="absolute z-20 hidden">
+                  <div class="relative">
+                    <!-- Outer ring -->
+                    <div class="w-16 h-16 rounded-full border-2 border-red-500 crosshair-pulse"></div>
+                    <!-- Inner crosshair -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div class="w-8 h-8 relative">
+                        <div class="absolute top-0 left-1/2 w-0.5 h-full bg-red-500 -translate-x-1/2"></div>
+                        <div class="absolute top-1/2 left-0 w-full h-0.5 bg-red-500 -translate-y-1/2"></div>
+                      </div>
+                    </div>
+                    <!-- Center dot -->
+                    <div class="absolute top-1/2 left-1/2 w-2 h-2 bg-red-500 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+                  </div>
+                </div>
+
+                <!-- Flight path line -->
+                <svg id="flight-path" class="absolute inset-0 w-full h-full pointer-events-none z-10">
+                  <defs>
+                    <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+                    </linearGradient>
+                  </defs>
+                  <line id="path-line" x1="0" y1="0" x2="0" y2="0" stroke="url(#pathGradient)" stroke-width="2" stroke-dasharray="10,5" class="hidden"/>
+                </svg>
+
+                <!-- Impact ripple effect -->
+                <div id="impact-ripple" class="absolute z-10 hidden pointer-events-none">
+                  <div class="w-4 h-4 rounded-full bg-yellow-500"></div>
+                </div>
+
+                <!-- Click instruction -->
+                <div id="click-instruction" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div class="text-center">
+                    <span class="material-symbols-outlined text-4xl text-gray-600 mb-2">touch_app</span>
+                    <p class="text-gray-500 text-sm">Click anywhere to set target</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Status Panel -->
+            <div class="glass-panel rounded-2xl p-6 space-y-6">
+              <h3 class="text-white font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-red-500">timeline</span>
+                Mission Progress
+              </h3>
+
+              <!-- Progress phases -->
+              <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                  <div id="phase-1" class="phase-indicator w-4 h-4 rounded-full bg-gray-700 shrink-0"></div>
+                  <div class="flex-1">
+                    <p class="text-white text-sm font-medium">Target Acquired</p>
+                    <p class="text-gray-500 text-xs">GPS coordinates locked</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div id="phase-2" class="phase-indicator w-4 h-4 rounded-full bg-gray-700 shrink-0"></div>
+                  <div class="flex-1">
+                    <p class="text-white text-sm font-medium">Launch Sequence</p>
+                    <p class="text-gray-500 text-xs">Drone airborne</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div id="phase-3" class="phase-indicator w-4 h-4 rounded-full bg-gray-700 shrink-0"></div>
+                  <div class="flex-1">
+                    <p class="text-white text-sm font-medium">En Route</p>
+                    <p class="text-gray-500 text-xs">Navigating to target</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div id="phase-4" class="phase-indicator w-4 h-4 rounded-full bg-gray-700 shrink-0"></div>
+                  <div class="flex-1">
+                    <p class="text-white text-sm font-medium">Payload Delivered</p>
+                    <p class="text-gray-500 text-xs">Mission complete</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Distance & Speed -->
+              <div class="border-t border-gray-800 pt-4 space-y-3">
+                <div class="flex justify-between">
+                  <span class="text-gray-400 text-sm">Distance</span>
+                  <span id="stat-distance" class="text-white font-mono">0.0 km</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400 text-sm">Speed</span>
+                  <span id="stat-speed" class="text-white font-mono">0 m/s</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400 text-sm">Accuracy</span>
+                  <span id="stat-accuracy" class="text-green-500 font-mono">±0.5m</span>
+                </div>
+              </div>
+
+              <!-- Mission Log -->
+              <div class="border-t border-gray-800 pt-4">
+                <h4 class="text-gray-400 text-xs font-bold mb-3 uppercase tracking-wide">Mission Log</h4>
+                <div id="mission-log" class="space-y-1 max-h-32 overflow-y-auto text-xs font-mono">
+                  <p class="text-gray-500">[READY] Awaiting target selection...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-gray-900 border-t border-gray-800">
+      <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-center space-y-6">
+          <div class="flex items-center gap-3 text-white">
+            <svg class="h-7 w-7 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 8.5V15.5L12 22L22 15.5V8.5L12 2ZM12 4.23L19.5 9.5V14.5L12 19.77L4.5 14.5V9.5L12 4.23ZM11 10V14H13V10H11ZM11 15V17H13V15H11Z"></path>
+            </svg>
+            <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Privacy Policy</a>
+            <a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Terms of Service</a>
+            <a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">Contact Us</a>
+          </div>
+          <p class="text-gray-500 text-sm">© 2023 MICROPTOR. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="assets/header.js"></script>
+
+<script>
+// GPS Targeting Interactive Script
+const map = document.getElementById('tactical-map');
+const targetMarker = document.getElementById('target-marker');
+const droneElement = document.getElementById('drone-element');
+const pathLine = document.getElementById('path-line');
+const launchBtn = document.getElementById('launch-btn');
+const resetBtn = document.getElementById('reset-btn');
+const clickInstruction = document.getElementById('click-instruction');
+const payloadIndicator = document.getElementById('payload-indicator');
+const impactRipple = document.getElementById('impact-ripple');
+const altitudeSlider = document.getElementById('altitude-slider');
+const payloadSlider = document.getElementById('payload-slider');
+
+let targetX = 0;
+let targetY = 0;
+let missionActive = false;
+let baseX = 10; // percentage
+let baseY = 20; // percentage
+let currentAltitude = 120; // meters
+let currentPayload = 2.5; // kg
+let currentDistance = 0; // km
+
+// Calculate realistic speed based on payload and altitude
+function calculateSpeed(payload, altitude) {
+  // Base speed: 22 m/s (at 2.5kg payload, 120m altitude)
+  const baseSpeed = 22;
+  
+  // Payload effect: heavier payload = slower (0.7-1.3x multiplier)
+  const payloadFactor = 1.3 - (payload / 5) * 0.6;
+  
+  // Altitude effect: higher altitude = slightly faster
+  // At 50m: 0.95x, At 2500m: 1.15x
+  const altitudeFactor = 0.95 + (altitude / 2500) * 0.2;
+  
+  const calculatedSpeed = baseSpeed * payloadFactor * altitudeFactor;
+  return Math.round(calculatedSpeed * 10) / 10;
+}
+
+// Calculate realistic ETA for display (not animation time)
+function calculateETA(distance, payload, altitude) {
+  const speed = calculateSpeed(payload, altitude);
+  const distanceInMeters = distance * 1000;
+  const timeInSeconds = distanceInMeters / speed;
+  
+  // Add extra time for altitude adjustment
+  const altitudeAdjustmentTime = altitude / 10; // 10 seconds per 100m
+  
+  const totalTime = Math.ceil(timeInSeconds + altitudeAdjustmentTime);
+  return { totalTime, speed };
+}
+
+// Calculate animation duration (4-15 seconds based on payload and altitude)
+function calculateAnimationDuration(payload, altitude) {
+  // Higher payload = longer animation (more weight to carry)
+  // Payload: 0.5kg -> 4sec, 5kg -> 10sec
+  const payloadFactor = 4 + ((payload - 0.5) / 4.5) * 6;
+  
+  // Higher altitude = longer animation (more time to reach altitude)
+  // Altitude: 50m -> 0sec, 2500m -> 5sec additional
+  const altitudeFactor = ((altitude - 50) / 2450) * 5;
+  
+  const duration = Math.min(15, Math.max(4, payloadFactor + altitudeFactor));
+  return duration;
+}
+
+// Update mission parameters display
+function updateMissionParameters() {
+  // Format altitude display
+  if (currentAltitude >= 1000) {
+    document.getElementById('param-altitude').textContent = `${(currentAltitude / 1000).toFixed(1)}km`;
+  } else {
+    document.getElementById('param-altitude').textContent = `${currentAltitude}m`;
+  }
+  
+  document.getElementById('param-payload').textContent = `${currentPayload}kg`;
+  
+  if (currentDistance > 0) {
+    const { totalTime, speed } = calculateETA(currentDistance, currentPayload, currentAltitude);
+    const minutes = Math.floor(totalTime / 60);
+    const seconds = totalTime % 60;
+    document.getElementById('param-eta').textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+    document.getElementById('est-speed').textContent = `${speed} m/s`;
+    
+    const animDuration = calculateAnimationDuration(currentPayload, currentAltitude).toFixed(1);
+    addLog('UPDATE', `ETA: ${minutes}:${String(seconds).padStart(2, '0')} (Animation: ${animDuration}s)`);
+  }
+}
+
+// Slider event listeners
+altitudeSlider.addEventListener('input', (e) => {
+  if (missionActive) return;
+  currentAltitude = parseInt(e.target.value);
+  updateMissionParameters();
+});
+
+payloadSlider.addEventListener('input', (e) => {
+  if (missionActive) return;
+  currentPayload = parseFloat(e.target.value);
+  updateMissionParameters();
+});
+
+// Map click handler
+map.addEventListener('click', (e) => {
+  if (missionActive) return;
+  
+  const rect = map.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  
+  // Don't allow clicking too close to base
+  if (Math.abs(x - baseX) < 15 && Math.abs(y - baseY) < 15) return;
+  
+  setTarget(x, y);
+});
+
+function setTarget(x, y) {
+  targetX = x;
+  targetY = y;
+  
+  // Show and position target marker
+  targetMarker.classList.remove('hidden');
+  targetMarker.style.left = `calc(${x}% - 32px)`;
+  targetMarker.style.top = `calc(${y}% - 32px)`;
+  
+  // Hide instruction
+  clickInstruction.classList.add('hidden');
+  
+  // Generate random coordinates based on click position
+  const lat = (28.5 + (y / 100) * 0.5).toFixed(6);
+  const lng = (77.0 + (x / 100) * 0.5).toFixed(6);
+  
+  document.getElementById('input-lat').value = `${lat}°N`;
+  document.getElementById('input-lng').value = `${lng}°E`;
+  
+  // Calculate distance
+  const dx = x - baseX;
+  const dy = y - baseY;
+  currentDistance = (Math.sqrt(dx * dx + dy * dy) / 10).toFixed(1);
+  
+  document.getElementById('stat-distance').textContent = `${currentDistance} km`;
+  
+  // Calculate ETA with current parameters
+  const { totalTime, speed } = calculateETA(currentDistance, currentPayload, currentAltitude);
+  const minutes = Math.floor(totalTime / 60);
+  const seconds = totalTime % 60;
+  
+  document.getElementById('param-eta').textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+  document.getElementById('est-speed').textContent = `${speed} m/s`;
+  
+  // Draw flight path
+  pathLine.setAttribute('x1', `${baseX}%`);
+  pathLine.setAttribute('y1', `${baseY}%`);
+  pathLine.setAttribute('x2', `${x}%`);
+  pathLine.setAttribute('y2', `${y}%`);
+  pathLine.classList.remove('hidden');
+  
+  // Enable launch button
+  launchBtn.disabled = false;
+  launchBtn.classList.add('glow-pulse');
+  
+  // Update phase
+  setPhase(1, 'active');
+  addLog('TARGET', `Coordinates locked: ${lat}°N, ${lng}°E`);
+  addLog('CALC', `Distance: ${currentDistance}km, ETA: ${minutes}:${String(seconds).padStart(2, '0')}`);
+}
+
+function launchMission() {
+  if (missionActive) return;
+  missionActive = true;
+  
+  launchBtn.disabled = true;
+  launchBtn.classList.remove('glow-pulse');
+  
+  // Disable sliders during mission
+  altitudeSlider.disabled = true;
+  payloadSlider.disabled = true;
+  
+  // Phase 2: Launch
+  setPhase(1, 'complete');
+  setPhase(2, 'active');
+  
+  const altDisplay = currentAltitude >= 1000 ? `${(currentAltitude / 1000).toFixed(1)}km` : `${currentAltitude}m`;
+  addLog('LAUNCH', `Drone airborne with ${currentPayload}kg at ${altDisplay} altitude`);
+  
+  // Calculate realistic speed for display
+  const flightSpeed = calculateSpeed(currentPayload, currentAltitude);
+  
+  // Calculate animation duration (4-15 seconds)
+  const animationDuration = calculateAnimationDuration(currentPayload, currentAltitude);
+  
+  // Start speed simulation with realistic variance
+  const speedInterval = setInterval(() => {
+    const variance = (Math.random() - 0.5) * 3;
+    const currentSpeed = Math.max(0, Math.round((flightSpeed + variance) * 10) / 10);
+    document.getElementById('stat-speed').textContent = `${currentSpeed} m/s`;
+  }, 500);
+  
+  // Phase 3: En Route (after 1 second)
+  setTimeout(() => {
+    setPhase(2, 'complete');
+    setPhase(3, 'active');
+    addLog('NAVIGATE', `En route - Animation: ${animationDuration.toFixed(1)}s`);
+    
+    // Animate drone to target (use animation duration, not realistic time)
+    const flightDuration = animationDuration * 1000; // Convert to milliseconds
+    droneElement.style.transitionDuration = `${flightDuration}ms`;
+    droneElement.style.left = `calc(${targetX}% - 20px)`;
+    droneElement.style.top = `calc(${targetY}% - 20px)`;
+    
+    // Phase 4: Delivery (based on animation duration)
+    setTimeout(() => {
+      setPhase(3, 'complete');
+      setPhase(4, 'active');
+      clearInterval(speedInterval);
+      document.getElementById('stat-speed').textContent = '0 m/s';
+      
+      // Hide payload
+      payloadIndicator.style.animation = 'payload-drop 0.5s ease-out forwards';
+      
+      addLog('DELIVERY', `Payload (${currentPayload}kg) released successfully`);
+      
+      // Show impact effect
+      setTimeout(() => {
+        impactRipple.classList.remove('hidden');
+        impactRipple.style.left = `calc(${targetX}% - 8px)`;
+        impactRipple.style.top = `calc(${targetY}% + 30px)`;
+        
+        // Create ripple animation
+        const ripple = impactRipple.querySelector('div');
+        ripple.style.animation = 'ripple 1s ease-out forwards';
+        
+        setTimeout(() => {
+          setPhase(4, 'complete');
+          addLog('COMPLETE', 'Mission successful - Returning to base');
+          
+          // Return to base
+          setTimeout(() => {
+            droneElement.style.transitionDuration = '3000ms';
+            droneElement.style.left = `calc(${baseX}% - 20px)`;
+            droneElement.style.top = `calc(${baseY}% - 20px)`;
+          }, 500);
+        }, 500);
+      }, 300);
+    }, flightDuration);
+  }, 1000);
+}
+
+function resetMission() {
+  missionActive = false;
+  
+  // Re-enable sliders
+  altitudeSlider.disabled = false;
+  payloadSlider.disabled = false;
+  
+  // Reset drone position
+  droneElement.style.transitionDuration = '3000ms';
+  droneElement.style.left = `calc(${baseX}% - 20px)`;
+  droneElement.style.top = `calc(${baseY}% - 20px)`;
+  
+  // Reset payload
+  payloadIndicator.style.animation = '';
+  
+  // Hide elements
+  targetMarker.classList.add('hidden');
+  pathLine.classList.add('hidden');
+  impactRipple.classList.add('hidden');
+  clickInstruction.classList.remove('hidden');
+  
+  // Reset inputs
+  document.getElementById('input-lat').value = '';
+  document.getElementById('input-lng').value = '';
+  document.getElementById('stat-distance').textContent = '0.0 km';
+  document.getElementById('stat-speed').textContent = '0 m/s';
+  document.getElementById('param-eta').textContent = '--:--';
+  document.getElementById('est-speed').textContent = '-- m/s';
+  
+  currentDistance = 0;
+  
+  // Reset phases
+  for (let i = 1; i <= 4; i++) {
+    setPhase(i, 'inactive');
+  }
+  
+  // Reset button
+  launchBtn.disabled = true;
+  launchBtn.classList.remove('glow-pulse');
+  
+  // Clear log
+  document.getElementById('mission-log').innerHTML = '<p class="text-gray-500">[READY] Awaiting target selection...</p>';
+}
+
+function setPhase(num, state) {
+  const phase = document.getElementById(`phase-${num}`);
+  phase.className = 'phase-indicator w-4 h-4 rounded-full shrink-0';
+  
+  if (state === 'active') {
+    phase.classList.add('active');
+  } else if (state === 'complete') {
+    phase.classList.add('complete');
+  } else {
+    phase.classList.add('bg-gray-700');
+  }
+}
+
+function addLog(type, message) {
+  const log = document.getElementById('mission-log');
+  const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+  const entry = document.createElement('p');
+  
+  const colors = {
+    'TARGET': 'text-yellow-500',
+    'CALC': 'text-purple-500',
+    'UPDATE': 'text-cyan-500',
+    'LAUNCH': 'text-blue-500',
+    'NAVIGATE': 'text-cyan-500',
+    'DELIVERY': 'text-green-500',
+    'COMPLETE': 'text-green-400'
+  };
+  
+  entry.className = colors[type] || 'text-gray-400';
+  entry.textContent = `[${type}] ${message}`;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+  
+  // Limit log entries
+  if (log.children.length > 15) {
+    log.removeChild(log.children[0]);
+  }
+}
+
+// Event listeners
+launchBtn.addEventListener('click', launchMission);
+resetBtn.addEventListener('click', resetMission);
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  droneElement.style.left = `calc(${baseX}% - 20px)`;
+  droneElement.style.top = `calc(${baseY}% - 20px)`;
+  updateMissionParameters();
+});
+</script>
+
+</body>
+</html>

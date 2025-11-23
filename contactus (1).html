@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <title>MICROPTOR - Contact Us</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    class="bg-[#000000] text-white"
+    style='font-family: "Public Sans", "Noto Sans", sans-serif;'
+  >
+    <div
+      class="relative flex size-full min-h-screen flex-col dark group/design-root overflow-x-hidden"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <!-- HEADER -->
+        <header
+          class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-neutral-800 px-10 py-4"
+        >
+          <div class="flex items-center gap-3 text-white">
+            <a href="index.html" class="flex items-center gap-3">
+              <svg
+                class="h-8 w-8 text-red-600"
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_6_535)">
+                  <path
+                    clip-rule="evenodd"
+                    d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_535">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+              <h2 class="text-white text-lg font-bold tracking-wider">
+                MICROPTOR
+              </h2>
+            </a>
+          </div>
+
+          <div class="flex flex-1 justify-end gap-8">
+            <nav class="flex items-center gap-8">
+              <div class="relative">
+                <button
+                  data-products-btn
+                  aria-expanded="false"
+                  class="flex items-center gap-2 text-neutral-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded"
+                >
+                  <span>Products</span>
+                  <svg
+                    class="h-4 w-4 text-neutral-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </button>
+                <div
+                  data-products-menu
+                  class="hidden absolute right-0 mt-2 w-44 bg-neutral-900 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5"
+                >
+                  <a
+                    href="pdp1.html"
+                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
+                    >Hawkeye</a
+                  >
+                  <a
+                    href="pdp2.html"
+                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
+                    >SkyDrop</a
+                  >
+                  <a
+                    href="pdp3.html"
+                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
+                    >HeatViper</a
+                  >
+                </div>
+              </div>
+
+              <a
+                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
+                href="index.html"
+                >Home</a
+              >
+              <a
+                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
+                href="careers.html"
+                >Careers</a
+              >
+              <a
+                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
+                href="aboutus.html"
+                >About</a
+              >
+              <a
+                class="text-white text-sm font-bold border-b-2 border-red-600 pb-1"
+                href="contactus.html"
+                >Contact</a
+              >
+            </nav>
+          </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="flex-1 px-4 py-12 md:px-6 lg:px-8">
+          <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+              <!-- LEFT: CONTACT FORM -->
+              <div class="flex flex-col gap-6">
+                <div class="space-y-3">
+                  <h1 class="text-4xl font-bold tracking-tight text-white">
+                    Contact Us
+                  </h1>
+                  <p class="text-neutral-400 text-lg">
+                    We're here to help. Reach out to us for any inquiries or
+                    support you may need.
+                  </p>
+                </div>
+
+                <!-- GOOGLE FORM-CONNECTED FORM -->
+                <form
+                  id="contact-form"
+                  method="POST"
+                  action="https://docs.google.com/forms/d/e/1FAIpQLScxR07QNm12hnof8laN2dYSTZzNgOW85sAJhBGMrDOg1TUKoA/formResponse"
+                  class="space-y-6"
+                >
+                  <!-- Optional hidden submit field -->
+                  <input type="hidden" name="submit" value="Submit" />
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Name -->
+                    <div class="space-y-2">
+                      <label
+                        class="text-sm font-medium text-neutral-300"
+                        for="name"
+                        >Your Name</label
+                      >
+                      <input
+                        required
+                        id="name"
+                        name="entry.1127963845"
+                        class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                        placeholder="John Doe"
+                      />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="space-y-2">
+                      <label
+                        class="text-sm font-medium text-neutral-300"
+                        for="email"
+                        >Your Email</label
+                      >
+                      <input
+                        required
+                        id="email"
+                        name="entry.290567318"
+                        type="email"
+                        class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                        placeholder="john.doe@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Subject -->
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium text-neutral-300"
+                      for="subject"
+                      >Subject</label
+                    >
+                    <input
+                      id="subject"
+                      name="entry.1554033577"
+                      class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                      placeholder="Inquiry about..."
+                    />
+                  </div>
+
+                  <!-- Message -->
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium text-neutral-300"
+                      for="message"
+                      >Your Message</label
+                    >
+                    <textarea
+                      required
+                      id="message"
+                      name="entry.141994632"
+                      class="form-textarea flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 min-h-36 resize-y"
+                      placeholder="Please describe your inquiry in detail."
+                    ></textarea>
+                  </div>
+
+                  <!-- File upload (Google Form won't store this, but UI works) -->
+                  <div class="space-y-2">
+                    <label
+                      class="text-sm font-medium text-neutral-300"
+                      for="resume"
+                      >Resume (optional)</label
+                    >
+                    <input
+                      class="form-input flex w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                      id="resume"
+                      name="resume"
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                    />
+                    <p class="text-neutral-500 text-xs">
+                      Attach your resume if you’re applying for a role. (This
+                      file is not sent to Google Forms.)
+                    </p>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <button
+                    class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-md h-12 px-6 bg-red-600 hover:bg-red-700 text-white text-base font-bold tracking-wide transition-colors"
+                    type="submit"
+                  >
+                    <span class="truncate">Send Message</span>
+                  </button>
+                </form>
+              </div>
+
+              <!-- RIGHT: CONTACT INFO + MAP -->
+              <div class="flex flex-col gap-8 lg:mt-16">
+                <div class="space-y-6">
+                  <h3 class="text-2xl font-bold text-white">
+                    Other Ways to Reach Us
+                  </h3>
+                  <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                      <div class="flex-shrink-0 pt-1">
+                        <span class="material-symbols-outlined text-red-600">
+                          email
+                        </span>
+                      </div>
+                      <div>
+                        <h4 class="font-semibold text-white">Sales Inquiries</h4>
+                        <a
+                          class="text-neutral-400 hover:text-red-500 transition-colors"
+                          href="mailto:jain175harshit@gmail.com"
+                          >jain175harshit@gmail.com</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                      <div class="flex-shrink-0 pt-1">
+                        <span class="material-symbols-outlined text-red-600">
+                          support_agent
+                        </span>
+                      </div>
+                      <div>
+                        <h4 class="font-semibold text-white">
+                          Customer Support
+                        </h4>
+                        <a
+                          class="text-neutral-400 hover:text-red-500 transition-colors"
+                          href="mailto:jain175harshit@gmail.com"
+                          >jain175harshit@gmail.com</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                      <div class="flex-shrink-0 pt-1">
+                        <span class="material-symbols-outlined text-red-600">
+                          call
+                        </span>
+                      </div>
+                      <div>
+                        <h4 class="font-semibold text-white">Phone</h4>
+                        <a
+                          class="text-neutral-400 hover:text-red-500 transition-colors"
+                          href="tel:+919374722634"
+                          >+91 9374722634</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="aspect-video w-full rounded-lg overflow-hidden border border-neutral-800"
+                >
+                  <iframe
+                    class="w-full h-full"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://maps.google.com/maps?q=21.1702,72.8311&z=13&output=embed"
+                  >
+                  </iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Header behavior JS (loads first - handles dropdown) -->
+    <script src="assets/header.js"></script>
+
+    <!-- Page-specific JS (loads after header) -->
+    <script src="assets/contactus.js"></script>
+  </body>
+</html>
