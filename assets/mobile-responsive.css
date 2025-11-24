@@ -1,0 +1,106 @@
+/* Mobile Responsive Styles for MICROPTOR Website */
+
+/* Base Mobile Adjustments */
+@media (max-width: 767px) {
+  /* Prevent horizontal scrolling */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Ensure all sections fit within viewport */
+  section, main, div {
+    max-width: 100%;
+  }
+  
+  /* Mobile typography adjustments */
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Header adjustments */
+  header {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Hide desktop-only elements */
+  .hidden-mobile {
+    display: none !important;
+  }
+  
+  /* Mobile padding adjustments */
+  .px-6, .px-10, .px-20 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .py-16, .py-20 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  /* Button sizing */
+  button, .btn, a[class*="btn"] {
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Form inputs */
+  input, textarea, select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+  
+  /* Image containers */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Grid adjustments */
+  .grid {
+    gap: 1rem !important;
+  }
+  
+  /* Card padding */
+  [class*="rounded"] {
+    padding: 1rem !important;
+  }
+  
+  /* Modal/Popup adjustments */
+  [class*="modal"], [class*="popup"] {
+    width: 95% !important;
+    max-width: 95vw !important;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Slight adjustments for tablet */
+  .px-10, .px-20 {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (hover: none) and (pointer: coarse) {
+  a, button, [role="button"], input[type="submit"], input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Landscape mobile orientation */
+@media (max-width: 767px) and (orientation: landscape) {
+  .min-h-screen {
+    min-height: auto !important;
+  }
+  
+  section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+}

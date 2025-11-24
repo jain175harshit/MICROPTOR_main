@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
     <link
       as="style"
@@ -10,7 +11,7 @@
       rel="stylesheet"
     />
     <title>MICROPTOR - Apply Now</title>
-    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="M-logo.png" sizes="32x32" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -28,7 +29,7 @@
       <div class="layout-container flex h-full grow flex-col">
         <!-- HEADER -->
         <header
-          class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-neutral-800 px-10 py-4"
+          class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-neutral-800 px-10 py-4 relative"
         >
           <div class="flex items-center gap-3 text-white">
             <a href="index.html" class="flex items-center gap-3">
@@ -37,8 +38,8 @@
             </a>
           </div>
 
-          <div class="flex flex-1 justify-end gap-8">
-            <nav class="flex items-center gap-8">
+          <div class="flex items-center gap-4">
+            <nav class="hidden md:flex items-center gap-8">
               <div class="relative">
                 <button
                   data-products-btn
@@ -75,6 +76,11 @@
                     class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
                     >SkyDrop</a
                   >
+                  <a
+                    href="pdp3.html"
+                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
+                    >HeatViper</a
+                  >
                 </div>
               </div>
 
@@ -98,6 +104,28 @@
                 href="contactus.html"
                 >Contact</a
               >
+            </nav>
+            <button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+          </div>
+
+          <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 z-30">
+            <nav class="p-4 space-y-2">
+              <div>
+                <button id="mobileProductsBtn" class="w-full flex items-center justify-between px-2 py-2 text-gray-200">Products
+                  <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div id="mobileProductsMenu" class="hidden pl-4 mt-1">
+                  <a href="pdp1.html" class="block px-2 py-2 text-gray-200">Hawkeye</a>
+                  <a href="pdp2.html" class="block px-2 py-2 text-gray-200">SkyDrop</a>
+                  <a href="pdp3.html" class="block px-2 py-2 text-gray-200">HeatViper</a>
+                </div>
+              </div>
+              <a class="block px-2 py-2 text-gray-200" href="index.html">Home</a>
+              <a class="block px-2 py-2 text-gray-200" href="careers.html">Careers</a>
+              <a class="block px-2 py-2 text-gray-200" href="aboutus.html">About</a>
+              <a class="block px-2 py-2 text-gray-200" href="contactus.html">Contact</a>
             </nav>
           </div>
         </header>
