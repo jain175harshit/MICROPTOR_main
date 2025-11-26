@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="mt-4 flex gap-3">
           <a href="${j.apply}" class="inline-block px-4 py-2 bg-[var(--primary-color)] hover:bg-red-600 text-white rounded">Apply</a>
-          <a href="${j.product}" class="inline-block px-4 py-2 border border-[var(--neutral-700)] text-[var(--neutral-50)] rounded">View Product</a>
         </div>
       </article>
     `).join('');
