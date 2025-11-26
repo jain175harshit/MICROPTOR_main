@@ -28,12 +28,10 @@
     >
       <div class="layout-container flex h-full grow flex-col">
         <!-- HEADER -->
-        <header
-          class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-neutral-800 px-10 py-4 relative"
-        >
+        <header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-gray-800 bg-[#000000] relative z-50">
           <div class="flex items-center gap-3 text-white">
             <a href="index.html" class="flex items-center gap-3">
-              <img src="M-logo.png" alt="MICROPTOR" class="h-8 w-8 object-contain"/>
+              <img src="M-logo.png" alt="MICROPTOR" class="h-7 w-7 object-contain"/>
               <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
             </a>
           </div>
@@ -41,69 +39,23 @@
           <div class="flex items-center gap-4">
             <nav class="hidden md:flex items-center gap-8">
               <div class="relative">
-                <button
-                  data-products-btn
-                  aria-expanded="false"
-                  class="flex items-center gap-2 text-neutral-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded"
-                >
+                <button data-products-btn class="flex items-center gap-2 text-gray-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded">
                   <span>Products</span>
-                  <svg
-                    class="h-4 w-4 text-neutral-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
+                  <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-                <div
-                  data-products-menu
-                  class="hidden absolute right-0 mt-2 w-44 bg-neutral-900 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5"
-                >
-                  <a
-                    href="pdp1.html"
-                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
-                    >Hawkeye</a
-                  >
-                  <a
-                    href="pdp2.html"
-                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
-                    >SkyDrop</a
-                  >
-                  <a
-                    href="pdp3.html"
-                    class="block px-4 py-2 text-neutral-300 hover:bg-neutral-800"
-                    >HeatViper</a
-                  >
+                <div data-products-menu class="hidden absolute right-0 mt-2 w-44 bg-gray-800 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5">
+                  <a href="pdp1.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">Hawkeye</a>
+                  <a href="pdp2.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">SkyDrop</a>
+                  <a href="pdp3.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">HeatViper</a>
                 </div>
               </div>
 
-              <a
-                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
-                href="index.html"
-                >Home</a
-              >
-              <a
-                class="text-white text-sm font-bold border-b-2 border-red-600 pb-1"
-                href="careers.html"
-                >Careers</a
-              >
-              <a
-                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
-                href="aboutus.html"
-                >About</a
-              >
-              <a
-                class="text-neutral-300 hover:text-white transition-colors text-sm font-medium"
-                href="contactus.html"
-                >Contact</a
-              >
+              <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="index.html">Home</a>
+              <a class="text-white text-sm font-bold border-b-2 border-red-600 pb-1" href="careers.html">Careers</a>
+              <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="aboutus.html">About</a>
+              <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="contactus.html">Contact</a>
             </nav>
             <button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>

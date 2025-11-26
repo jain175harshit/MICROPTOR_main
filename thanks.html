@@ -14,28 +14,20 @@
 </head>
 <body class="bg-[var(--secondary-color)] text-gray-100" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
   <div class="min-h-screen flex flex-col">
-    <header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-gray-800">
-      <a href="index.html" class="flex items-center gap-3 text-white">
-        <img src="M-logo.png" alt="MICROPTOR" class="h-7 w-7 object-contain"/>
-        <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
-      </a>
-      <nav class="hidden md:flex items-center gap-8">
-        <a class="text-gray-300 hover:text-white text-sm font-medium" href="index.html">Home</a>
-        <a class="text-gray-300 hover:text-white text-sm font-medium" href="careers.html">Careers</a>
-        <a class="text-gray-300 hover:text-white text-sm font-medium" href="aboutus.html">About</a>
-        <a class="text-white text-sm font-bold border-b-2 border-[var(--primary-color)] pb-1" href="contactus.html">Contact</a>
-      </nav>
-    </header>
-    <main class="flex-1 flex items-center justify-center p-8">
-      <div class="max-w-xl text-center">
-        <h1 class="text-3xl md:text-4xl font-extrabold">Thanks for reaching out</h1>
-        <p class="text-gray-400 mt-3">We received your submission and will get back to you shortly.</p>
-        <div class="mt-8 flex gap-3 justify-center">
-          <a href="index.html" class="px-5 py-2 rounded-md bg-[var(--primary-color)] text-white font-semibold">Back to Home</a>
-          <a href="careers.html" class="px-5 py-2 rounded-md border border-gray-700 text-white font-semibold">View Careers</a>
+    <div class="layout-container flex h-full grow flex-col">
+      <!-- Header loaded dynamically by header-loader.js -->
+      <main class="flex-1 flex items-center justify-center p-8">
+        <div class="max-w-xl text-center">
+          <h1 class="text-3xl md:text-4xl font-extrabold">Thanks for reaching out</h1>
+          <p class="text-gray-400 mt-3">We received your submission and will get back to you shortly.</p>
+          <div class="mt-8 flex gap-3 justify-center">
+            <a href="index.html" class="px-5 py-2 rounded-md bg-[var(--primary-color)] text-white font-semibold">Back to Home</a>
+            <a href="careers.html" class="px-5 py-2 rounded-md border border-gray-700 text-white font-semibold">View Careers</a>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   </div>
+  <script src="assets/header-loader.js"></script>
 </body>
 </html>
