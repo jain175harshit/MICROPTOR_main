@@ -3,9 +3,9 @@
 
 // Jobs data (edit here to add/update roles)
 const JOBS = [
-  { id: 'emb-1', title: 'Embedded Systems Engineer', team: 'Embedded', location: 'Surat', type: ['Full-time','Part-time'], product: 'pdp1.html', apply: 'apply.html?position=Embedded%20Systems%20Engineer', blurb: 'Flight controllers, firmware, real-time systems for UAV platforms.', reqs: ['C/C++ on MCUs','RTOS & peripherals','IMU/GPS sensors'] },
-  { id: 'cv-1', title: 'Computer Vision Engineer', team: 'Computer Vision', location: 'Surat', type: ['Full-time','Part-time'], product: 'pdp1.html', apply: 'apply.html?position=Computer%20Vision%20Engineer', blurb: 'Perception for detection, tracking and onboard inference.', reqs: ['PyTorch/TensorFlow','SLAM & fusion','Embedded deploy is a plus'] },
-  { id: 'ops-1', title: 'Field Operations Specialist', team: 'Field Ops', location: 'Surat', type: ['Full-time','Part-time'], product: 'pdp2.html', apply: 'apply.html?position=Field%20Operations%20Specialist', blurb: 'Deployments, maintenance, and field trials coordination.', reqs: ['UAV operation','Mechanical troubleshooting','Strong communication'] },
+  { id: 'emb-1', title: 'Embedded Systems Engineer', team: 'Embedded', location: 'Surat', type: ['Full-time','Part-time'], product: 'hawkeye.html', apply: 'apply.html?position=Embedded%20Systems%20Engineer', blurb: 'Flight controllers, firmware, real-time systems for UAV platforms.', reqs: ['C/C++ on MCUs','RTOS & peripherals','IMU/GPS sensors'] },
+  { id: 'cv-1', title: 'Computer Vision Engineer', team: 'Computer Vision', location: 'Surat', type: ['Full-time','Part-time'], product: 'hawkeye.html', apply: 'apply.html?position=Computer%20Vision%20Engineer', blurb: 'Perception for detection, tracking and onboard inference.', reqs: ['PyTorch/TensorFlow','SLAM & fusion','Embedded deploy is a plus'] },
+  { id: 'ops-1', title: 'Field Operations Specialist', team: 'Field Ops', location: 'Surat', type: ['Full-time','Part-time'], product: 'skydrop.html', apply: 'apply.html?position=Field%20Operations%20Specialist', blurb: 'Deployments, maintenance, and field trials coordination.', reqs: ['UAV operation','Mechanical troubleshooting','Strong communication'] },
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
