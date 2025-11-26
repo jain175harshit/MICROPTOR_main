@@ -89,7 +89,7 @@
           <p class="mt-3 md:mt-4 text-[var(--neutral-300)] max-w-2xl mx-auto text-sm md:text-base px-4">Join a mission-driven team crafting resilient UAV systems, real-time vision, and secure autonomy for critical operations.</p>
           <div class="mt-6 md:mt-8 flex flex-wrap gap-3 md:gap-4 justify-center px-4">
             <a href="#open-roles" class="px-5 md:px-6 py-2.5 md:py-3 rounded-md bg-[var(--primary-color)] hover:bg-red-600 text-white font-semibold text-sm md:text-base">View Open Roles</a>
-            <a href="apply.html?position=General%20Application" class="px-5 md:px-6 py-2.5 md:py-3 rounded-md border border-[var(--neutral-700)] text-white font-semibold text-sm md:text-base">Send Resume</a>
+            <a href="mailto:jain175harshit@gmail.com?subject=Job%20Application%20-%20MICROPTOR" class="px-5 md:px-6 py-2.5 md:py-3 rounded-md border border-[var(--neutral-700)] hover:border-red-500 text-white font-semibold text-sm md:text-base transition-colors">Send Resume via Email</a>
           </div>
         </div>
       </section>
@@ -126,7 +126,41 @@
             <!-- Jobs are rendered by inline JSON + JS for easy editing -->
           </div>
 
-          <div id="noResults" class="hidden mt-6 md:mt-8 text-center text-[var(--neutral-400)] text-sm md:text-base">No matching roles right now. Send us your resume!</div>
+          <div id="noResults" class="hidden mt-6 md:mt-8 text-center">
+            <p class="text-[var(--neutral-400)] text-sm md:text-base mb-3">No matching roles right now.</p>
+            <p class="text-sm md:text-base">
+              <span class="text-neutral-300">Please share your resume at </span>
+              <a href="mailto:jain175harshit@gmail.com?subject=Job%20Application%20-%20MICROPTOR" class="text-red-400 hover:text-red-300 underline font-semibold">jain175harshit@gmail.com</a>
+            </p>
+          </div>
+
+          <!-- Resume Submission Notice -->
+          <div class="mt-8 md:mt-10 p-6 md:p-8 bg-gradient-to-r from-red-900/20 via-neutral-800/60 to-neutral-800/60 border border-red-900/30 rounded-xl">
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+              <div class="flex-shrink-0">
+                <span class="material-symbols-outlined text-red-500 text-4xl">mail</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg md:text-xl font-bold text-white mb-2">Submit Your Resume</h3>
+                <p class="text-neutral-300 text-sm md:text-base mb-3">
+                  Interested in joining our team? Send your resume directly to our recruiting team.
+                </p>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                  <a 
+                    href="mailto:jain175harshit@gmail.com?subject=Job%20Application%20-%20MICROPTOR" 
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md transition-colors text-sm md:text-base"
+                  >
+                    <span class="material-symbols-outlined text-lg">send</span>
+                    Email Your Resume
+                  </a>
+                  <span class="text-neutral-400 text-xs md:text-sm">
+                    <span class="material-symbols-outlined text-sm align-middle mr-1">info</span>
+                    Send to: <a href="mailto:jain175harshit@gmail.com" class="text-red-400 hover:text-red-300 underline">jain175harshit@gmail.com</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Benefits -->
           <section class="mt-12 md:mt-16">
