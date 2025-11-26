@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Privacy & Terms - MICROPTOR</title>
+<link rel="icon" type="image/png" href="M-logo.png" sizes="32x32"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #ef4444;
+        --secondary-color: #111827;
+      }
+    </style>
+</head>
+<body class="bg-[var(--secondary-color)] text-gray-300" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col overflow-x-hidden">
+  <div class="layout-container flex h-full grow flex-col">
+    <header class="flex items-center justify-between whitespace-nowrap px-6 py-4 border-b border-gray-800 bg-[var(--secondary-color)] relative z-50">
+      <div class="flex items-center gap-3 text-white">
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="M-logo.png" alt="MICROPTOR" class="h-7 w-7 object-contain"/>
+          <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+        </a>
+      </div>
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex items-center gap-8">
+          <div class="relative">
+            <button data-products-btn class="flex items-center gap-2 text-gray-300 hover:text-white text-sm font-medium transition-colors px-2 py-1 rounded">
+              <span>Products</span>
+              <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div data-products-menu class="hidden absolute right-0 mt-2 w-44 bg-gray-800 rounded-md shadow-lg z-20 ring-1 ring-black ring-opacity-5">
+              <a href="pdp1.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">Hawkeye</a>
+              <a href="pdp2.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">SkyDrop</a>
+              <a href="pdp3.html" class="block px-4 py-2 text-gray-200 hover:bg-gray-700">HeatViper</a>
+            </div>
+          </div>
+          <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="index.html">Home</a>
+          <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="careers.html">Careers</a>
+          <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="aboutus.html">About</a>
+          <a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="contactus.html">Contact</a>
+        </nav>
+        <button id="mobileToggle" class="md:hidden p-2 rounded bg-black/30 text-white">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 z-30">
+        <nav class="p-4 space-y-2">
+          <div>
+            <button id="mobileProductsBtn" class="w-full flex items-center justify-between px-2 py-2 text-gray-200">Products
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="mobileProductsMenu" class="hidden pl-4 mt-1">
+              <a href="pdp1.html" class="block px-2 py-2 text-gray-200">Hawkeye</a>
+              <a href="pdp2.html" class="block px-2 py-2 text-gray-200">SkyDrop</a>
+              <a href="pdp3.html" class="block px-2 py-2 text-gray-200">HeatViper</a>
+            </div>
+          </div>
+          <a class="block px-2 py-2 text-gray-200" href="index.html">Home</a>
+          <a class="block px-2 py-2 text-gray-200" href="careers.html">Careers</a>
+          <a class="block px-2 py-2 text-gray-200" href="aboutus.html">About</a>
+          <a class="block px-2 py-2 text-gray-200" href="contactus.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1 px-4 md:px-10 lg:px-20 xl:px-40 py-12 md:py-16">
+      <div class="layout-content-container flex flex-col max-w-5xl mx-auto space-y-10 md:space-y-12">
+        <div class="text-center space-y-3 md:space-y-4">
+          <p class="text-sm text-gray-400">Last updated: January 2024</p>
+          <h1 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">Privacy Policy & Terms of Service</h1>
+          <p class="text-gray-400 text-base md:text-lg leading-relaxed">How MICROPTOR protects data, operates our platforms, and partners responsibly with customers.</p>
+          <div class="flex items-center justify-center gap-3 flex-wrap pt-2">
+            <a href="#privacy-policy" class="inline-flex items-center gap-2 rounded-full bg-black/40 px-4 py-2 text-sm font-semibold text-white border border-gray-800 hover:border-[var(--primary-color)] transition-colors">
+              <span class="material-symbols-outlined text-[var(--primary-color)]">shield_lock</span> Privacy Policy
+            </a>
+            <a href="#terms-of-service" class="inline-flex items-center gap-2 rounded-full bg-black/40 px-4 py-2 text-sm font-semibold text-white border border-gray-800 hover:border-[var(--primary-color)] transition-colors">
+              <span class="material-symbols-outlined text-[var(--primary-color)]">gavel</span> Terms of Service
+            </a>
+          </div>
+        </div>
+
+        <section id="privacy-policy" class="bg-gray-900/60 border border-gray-800 rounded-xl p-6 md:p-10 space-y-4 md:space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">shield_lock</span>
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-400">Privacy Policy</p>
+              <h2 class="text-white text-2xl md:text-3xl font-bold">How we collect, use, and safeguard data</h2>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm md:text-base leading-relaxed">We collect only the data needed to operate our platforms, secure our infrastructure, and support mission readiness. Access is limited to authorized personnel, and we do not sell customer information.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <h3 class="text-white font-semibold text-lg">What we collect</h3>
+              <ul class="list-disc list-inside text-gray-400 text-sm md:text-base space-y-1">
+                <li>Account details and role-based access data</li>
+                <li>Operational logs for safety, compliance, and troubleshooting</li>
+                <li>Contact information for support and training</li>
+              </ul>
+            </div>
+            <div class="space-y-2">
+              <h3 class="text-white font-semibold text-lg">How we protect it</h3>
+              <ul class="list-disc list-inside text-gray-400 text-sm md:text-base space-y-1">
+                <li>Encryption in transit and at rest for sensitive records</li>
+                <li>Least-privilege access controls and activity monitoring</li>
+                <li>Retention schedules with options to request correction or deletion</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm md:text-base leading-relaxed">We use your data to deliver services, meet legal and safety requirements, and improve reliability. For questions or data requests, contact us via <a class="text-[var(--primary-color)] hover:text-white font-semibold" href="contactus.html">our contact page</a>.</p>
+        </section>
+
+        <section id="terms-of-service" class="bg-gray-900/60 border border-gray-800 rounded-xl p-6 md:p-10 space-y-4 md:space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">gavel</span>
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-400">Terms of Service</p>
+              <h2 class="text-white text-2xl md:text-3xl font-bold">Using MICROPTOR platforms responsibly</h2>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm md:text-base leading-relaxed">MICROPTOR products are engineered for authorized defense and security missions. By using our services, you agree to follow operational guidelines, protect access credentials, and comply with applicable regulations.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <h3 class="text-white font-semibold text-lg">Customer commitments</h3>
+              <ul class="list-disc list-inside text-gray-400 text-sm md:text-base space-y-1">
+                <li>Use solutions only for lawful, authorized purposes</li>
+                <li>Complete required safety checks and training before deployment</li>
+                <li>Maintain the security of credentials and access tokens</li>
+              </ul>
+            </div>
+            <div class="space-y-2">
+              <h3 class="text-white font-semibold text-lg">Service scope</h3>
+              <ul class="list-disc list-inside text-gray-400 text-sm md:text-base space-y-1">
+                <li>Service availability may vary due to maintenance or regulatory needs</li>
+                <li>Field performance depends on mission profiles and environmental factors</li>
+                <li>Custom terms can be aligned through program-specific agreements</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm md:text-base leading-relaxed">To discuss tailored terms for a program or contract, please contact our team.</p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="bg-gray-900 border-t border-gray-800">
+      <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-center space-y-6">
+          <div class="flex items-center gap-3 text-white">
+            <img src="M-logo.png" alt="MICROPTOR" class="h-7 w-7 object-contain"/>
+            <h2 class="text-white text-lg font-bold tracking-wider">MICROPTOR</h2>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <a class="text-gray-400 hover:text-white transition-colors text-sm" href="legal.html">Privacy &amp; Terms</a>
+            <a class="text-gray-400 hover:text-white transition-colors text-sm" href="contactus.html">Contact Us</a>
+          </div>
+          <p class="text-gray-500 text-sm">© 2024 MICROPTOR. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="assets/header.js"></script>
+</body>
+</html>
