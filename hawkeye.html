@@ -869,11 +869,63 @@ function selectScenario(key) {
 }
 
 // Event Listeners
-document.getElementById('play-btn').addEventListener('click', play);
-document.getElementById('reset-btn').addEventListener('click', reset);
-document.querySelectorAll('.scenario-btn').forEach(btn => {
-	btn.addEventListener('click', () => selectScenario(btn.dataset.scenario));
+document.getElementById('play-btn').addEventListener('click', function() {
+	// Track simulation start/replay
+	if (typeof gtag === 'function') {
+		gtag('event', 'hawkeye_simulation_start', {
+			'event_category': 'Interactive Demo',
+			'event_label': scenarios[currentScenario].name,
+			'scenario': currentScenario
+		});
+	}
+	play();
 });
+
+document.getElementById('reset-btn').addEventListener('click', function() {
+	// Track simulation reset
+	if (typeof gtag === 'function') {
+		gtag('event', 'hawkeye_simulation_reset', {
+			'event_category': 'Interactive Demo',
+			'event_label': scenarios[currentScenario].name,
+			'scenario': currentScenario
+		});
+	}
+	reset();
+});
+
+document.querySelectorAll('.scenario-btn').forEach(btn => {
+	btn.addEventListener('click', () => {
+		// Track scenario selection
+		if (typeof gtag === 'function') {
+			gtag('event', 'hawkeye_scenario_select', {
+				'event_category': 'Interactive Demo',
+				'event_label': scenarios[btn.dataset.scenario].name,
+				'scenario': btn.dataset.scenario
+			});
+		}
+		selectScenario(btn.dataset.scenario);
+	});
+});
+
+// Track when user views the interactive section (scroll into view)
+const hawkeyeDemoSection = document.getElementById('visual-demo');
+if (hawkeyeDemoSection && 'IntersectionObserver' in window) {
+	let hasTrackedView = false;
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting && !hasTrackedView) {
+				hasTrackedView = true;
+				if (typeof gtag === 'function') {
+					gtag('event', 'hawkeye_demo_view', {
+						'event_category': 'Interactive Demo',
+						'event_label': 'Demo Section Viewed'
+					});
+				}
+			}
+		});
+	}, { threshold: 0.3 });
+	observer.observe(hawkeyeDemoSection);
+}
 
 // Initial render
 renderSteps();

@@ -682,20 +682,6 @@ payloadSlider.addEventListener('input', (e) => {
   updateMissionParameters();
 });
 
-// Map click handler
-map.addEventListener('click', (e) => {
-  if (missionActive) return;
-  
-  const rect = map.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  
-  // Don't allow clicking too close to base
-  if (Math.abs(x - baseX) < 15 && Math.abs(y - baseY) < 15) return;
-  
-  setTarget(x, y);
-});
-
 function setTarget(x, y) {
   targetX = x;
   targetY = y;
@@ -912,8 +898,98 @@ function addLog(type, message) {
 }
 
 // Event listeners
-launchBtn.addEventListener('click', launchMission);
-resetBtn.addEventListener('click', resetMission);
+launchBtn.addEventListener('click', function() {
+  // Track mission launch
+  if (typeof gtag === 'function') {
+    gtag('event', 'skydrop_mission_launch', {
+      'event_category': 'Interactive Demo',
+      'event_label': 'Mission Launched',
+      'altitude': currentAltitude,
+      'payload': currentPayload,
+      'distance': currentDistance
+    });
+  }
+  launchMission();
+});
+
+resetBtn.addEventListener('click', function() {
+  // Track mission reset
+  if (typeof gtag === 'function') {
+    gtag('event', 'skydrop_mission_reset', {
+      'event_category': 'Interactive Demo',
+      'event_label': 'Mission Reset'
+    });
+  }
+  resetMission();
+});
+
+// Track map clicks for target selection
+map.addEventListener('click', (e) => {
+  if (missionActive) return;
+  
+  const rect = map.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  
+  // Don't allow clicking too close to base
+  if (Math.abs(x - baseX) < 15 && Math.abs(y - baseY) < 15) return;
+  
+  // Track target selection
+  if (typeof gtag === 'function') {
+    gtag('event', 'skydrop_target_select', {
+      'event_category': 'Interactive Demo',
+      'event_label': 'Target Selected on Map'
+    });
+  }
+  
+  setTarget(x, y);
+});
+
+// Track slider interactions
+let altitudeSliderTracked = false;
+let payloadSliderTracked = false;
+
+altitudeSlider.addEventListener('change', (e) => {
+  if (!altitudeSliderTracked && typeof gtag === 'function') {
+    altitudeSliderTracked = true;
+    gtag('event', 'skydrop_altitude_adjust', {
+      'event_category': 'Interactive Demo',
+      'event_label': 'Altitude Adjusted',
+      'value': currentAltitude
+    });
+  }
+});
+
+payloadSlider.addEventListener('change', (e) => {
+  if (!payloadSliderTracked && typeof gtag === 'function') {
+    payloadSliderTracked = true;
+    gtag('event', 'skydrop_payload_adjust', {
+      'event_category': 'Interactive Demo',
+      'event_label': 'Payload Adjusted',
+      'value': currentPayload
+    });
+  }
+});
+
+// Track when user views the interactive section (scroll into view)
+const skydropDemoSection = document.querySelector('section.py-20');
+if (skydropDemoSection && 'IntersectionObserver' in window) {
+  let hasTrackedView = false;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasTrackedView) {
+        hasTrackedView = true;
+        if (typeof gtag === 'function') {
+          gtag('event', 'skydrop_demo_view', {
+            'event_category': 'Interactive Demo',
+            'event_label': 'Demo Section Viewed'
+          });
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(skydropDemoSection);
+}
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
