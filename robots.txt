@@ -1,0 +1,27 @@
+# robots.txt for MICROPTOR Website
+# https://www.microptor.com
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas (if any)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow important pages
+Allow: /index.html
+Allow: /aboutus.html
+Allow: /careers.html
+Allow: /contactus.html
+Allow: /hawkeye.html
+Allow: /skydrop.html
+Allow: /heatviper.html
+Allow: /legal.html
+Allow: /apply.html
+
+# Sitemap location
+Sitemap: https://www.microptor.com/sitemap.xml
+
+# Crawl-delay (optional - adjust if needed)
+# Crawl-delay: 1
+
